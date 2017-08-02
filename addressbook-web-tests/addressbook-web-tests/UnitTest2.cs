@@ -20,8 +20,11 @@ namespace SeleniumTests
         [SetUp]
         public void SetupTest()
         {
-            driver = new FirefoxDriver(new FirefoxBinary("C:\\Program files\\firefox.exe"), new FirefoxProfile());
-            baseURL = "http://localhost/addressbook/";
+            FirefoxOptions options = new FirefoxOptions();
+            options.BrowserExecutableLocation = @"c:\Program Files\Mozilla Firefox\firefox.exe";
+            options.UseLegacyImplementation = true;
+            driver = new FirefoxDriver(options);
+            baseURL = "http://localhost/";
             verificationErrors = new StringBuilder();
         }
 
