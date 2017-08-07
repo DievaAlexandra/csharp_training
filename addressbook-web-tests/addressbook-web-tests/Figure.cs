@@ -10,7 +10,7 @@ namespace addressbook_web_tests
     {
         private bool colored = false;
         public bool Colored
-        {   //gfdgfd
+        {   
             get
             {
                 return colored;
