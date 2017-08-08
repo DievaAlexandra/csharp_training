@@ -46,11 +46,22 @@ namespace WebAddressbookTests
         public void AddNewContactTest()
         {
             OpenHomePage();
-            Login(new AccountData("admin","secret"));
+            Login(new AccountData("admin", "secret"));
             GoToCreateContactPage();
-            FillContactForm(new UserData("sasha","dieva"));
-            // ERROR: Caught exception [Error: Dom locators are not implemented yet!]
+            FillContactForm(new UserData("sasha", "dieva", "bu"));
+            SubmitContactCreation();
+            GoToHomePage();
             Logout();
+        }
+
+        private void GoToHomePage()
+        {
+            driver.FindElement(By.LinkText("home page")).Click();
+        }
+
+        private void SubmitContactCreation()
+        {
+            driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
         }
 
         private void Logout()
@@ -64,7 +75,9 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("firstname")).SendKeys(user.Firstname);
             driver.FindElement(By.Name("middlename")).Clear();
             driver.FindElement(By.Name("middlename")).SendKeys(user.Middlename);
-          
+            driver.FindElement(By.Name("lastname")).Clear();
+            driver.FindElement(By.Name("lastname")).SendKeys(user.LastName);
+
         }
 
         private void GoToCreateContactPage()
