@@ -8,35 +8,35 @@ namespace WebAddressbookTests
 {
   public  class AccountData
     {
-        private string username;
-        private string password;
+        private string _username;
+        private string _password;
 
         public AccountData(string username, string password)
         {
-            this.username = username;
-            this.password = password;
+            this._username = username;
+            this._password = password;
         }
         
         public string Username
         {
             get
             {
-                return username;
+                return _username;
             }
             set
             {
-                username = value;
+                _username = value;
             }
         }
         public string Password
         {
             get
             {
-                return password;
+                return _password;
             }
             set
             {
-                password = value;
+                _password = value;
             }
         }
     }

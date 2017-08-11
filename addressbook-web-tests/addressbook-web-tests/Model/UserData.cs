@@ -8,27 +8,27 @@ namespace WebAddressbookTests
 {
    public class UserData
     {
-        private string firstname;
-        private string middlename;
-        private string lastname;
+        private string _firstname;
+        private string _middlename;
+        private string _lastname;
         
 
         public UserData(string firstname, string middlename, string lastname)
         {
-            this.firstname = firstname;
-            this.middlename = middlename;
-            this.lastname = lastname;
+            this._firstname = firstname;
+            this._middlename = middlename;
+            this._lastname = lastname;
         }
 
         public string Firstname
         {
             get
             {
-                return firstname;
+                return _firstname;
             }
             set
             {
-                firstname = value;
+                _firstname = value;
             }
         }
 
@@ -36,24 +36,24 @@ namespace WebAddressbookTests
         {
             get
             {
-                return middlename;
+                return _middlename;
             }
 
             set
             {
-                middlename = value;
+                _middlename = value;
             }
         }
         public string LastName
         {
             get
             {
-                return lastname;
+                return _lastname;
             }
 
             set
             {
-                lastname = value;
+                _lastname = value;
             }
         }
 
