@@ -3,17 +3,17 @@
   <Class Name="WebAddressbookTests.TestBase">
     <Position X="1.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAIAAAAAAAAAAAAABAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAABAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>Tests\TestBase.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="app" />
+      <Field Name="App" />
     </ShowAsAssociation>
   </Class>
   <Class Name="WebAddressbookTests.GroupCreationTests">
     <Position X="2.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Tests\GroupCreationTests.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -27,7 +27,7 @@
   <Class Name="WebAddressbookTests.GroupHelper" Collapsed="true">
     <Position X="8.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAABABAAAAAAAAAAAAAABEAAAAAAAAABAAAA=</HashCode>
+      <HashCode>AAACAAAAAABABAAAAAAAAAAAAAABEEAAAAAAAABAAAA=</HashCode>
       <FileName>Appmanager\GroupHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -48,7 +48,7 @@
   <Class Name="WebAddressbookTests.HelperBase" Collapsed="true">
     <Position X="12" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Appmanager\HelperBase.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -62,14 +62,14 @@
   <Class Name="WebAddressbookTests.ApplicationManager">
     <Position X="4.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAAEAEAABAAAAAAAAAAAAAQAAAAAgAAAIBCAABAAACA=</HashCode>
+      <HashCode>BAAEAEAABAAAAAAABAAAAAAAAAAAgAAgIAAAABAQgAA=</HashCode>
       <FileName>Appmanager\ApplicationManager.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="contactHelper" />
-      <Field Name="groupHelper" />
       <Field Name="navigator" />
-      <Field Name="loginhelper" />
+      <Field Name="ContactHelper" />
+      <Field Name="Loginhelper" />
+      <Field Name="GroupHelper" />
     </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />

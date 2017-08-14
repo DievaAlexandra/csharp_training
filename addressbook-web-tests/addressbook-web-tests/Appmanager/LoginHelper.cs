@@ -15,21 +15,22 @@ namespace WebAddressbookTests
     public class LoginHelper : HelperBase
     {
         
-        public LoginHelper(IWebDriver driver): base(driver)
+        public LoginHelper(ApplicationManager manager)
+            : base(manager)
         {
         }
 
         public void Login(AccountData account)
         {
-            Driver.FindElement(By.Name("user")).Clear();
-            Driver.FindElement(By.Name("user")).SendKeys(account.Username);
-            Driver.FindElement(By.Name("pass")).Clear();
-            Driver.FindElement(By.Name("pass")).SendKeys(account.Password);
-            Driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
+            driver.FindElement(By.Name("user")).Clear();
+            driver.FindElement(By.Name("user")).SendKeys(account.Username);
+            driver.FindElement(By.Name("pass")).Clear();
+            driver.FindElement(By.Name("pass")).SendKeys(account.Password);
+            driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
         }
         public void Logout()
         {
-            Driver.FindElement(By.LinkText("Logout")).Click();
+            driver.FindElement(By.LinkText("Logout")).Click();
         }
     }
 }

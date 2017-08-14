@@ -13,25 +13,91 @@ namespace WebAddressbookTests
     public class ContactHelper : HelperBase
     {
       
-        public ContactHelper(IWebDriver driver): base(driver)
+        public ContactHelper(ApplicationManager manager): base(manager)
         {
         }
-        public void FillContactForm(UserData user)
+        public ContactHelper Create(UserData contact)
         {
-            Driver.FindElement(By.Name("firstname")).Clear();
-            Driver.FindElement(By.Name("firstname")).SendKeys(user.Firstname);
-            Driver.FindElement(By.Name("middlename")).Clear();
-            Driver.FindElement(By.Name("middlename")).SendKeys(user.Middlename);
-            Driver.FindElement(By.Name("lastname")).Clear();
-            Driver.FindElement(By.Name("lastname")).SendKeys(user.LastName);
+            manager.Navigator.GoToHomePage();
+
+            GoToCreateContactPage();
+            FillContactForm(new UserData("alisa", "grozny", "durachok"));
+            SubmitContactCreation();
+          return this;
         }
-        public void GoToCreateContactPage()
+        public ContactHelper FillContactForm(UserData user)
         {
-            Driver.FindElement(By.LinkText("add new")).Click();
+            driver.FindElement(By.Name("firstname")).Clear();
+            driver.FindElement(By.Name("firstname")).SendKeys(user.Firstname);
+            driver.FindElement(By.Name("middlename")).Clear();
+            driver.FindElement(By.Name("middlename")).SendKeys(user.Middlename);
+            driver.FindElement(By.Name("lastname")).Clear();
+            driver.FindElement(By.Name("lastname")).SendKeys(user.LastName);
+            return this;
         }
-        public void SubmitContactCreation()
+
+        public ContactHelper Modify(int v, UserData user)
         {
-            Driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
+            manager.Navigator.GoToHomePage();
+            SelectContact(v);
+            InitContactModification();
+            FillContactForm(user);
+            SubmitContactModification();
+            manager.Navigator.GoToHomePage();
+            return this;
         }
+
+        public ContactHelper Remove(int i)
+        {
+            manager.Navigator.GoToHomePage();
+
+            SelectContact(i);
+            DeleteContact();
+            SubmitDeleteContact();
+            manager.Navigator.GoToHomePage();
+            return this;
+        }
+
+        public ContactHelper SubmitDeleteContact()
+        {
+            driver.SwitchTo().Alert().Accept();
+            return this;
+        }
+
+        public ContactHelper  DeleteContact()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            return this;
+        }
+
+        public ContactHelper GoToCreateContactPage()
+        {
+            driver.FindElement(By.LinkText("add new")).Click();
+            return this;
+        }
+
+        public ContactHelper SelectContact(int v)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[1]")).Click();
+            return this;
+        }
+        public ContactHelper SubmitContactCreation()
+        {
+            driver.FindElement(By.XPath("(//input[@name='submit'])[1]")).Click();
+            return this;
+        }
+        public ContactHelper InitContactModification()
+        {
+            driver.FindElement(By.CssSelector("img[alt=\"Edit\"]")).Click();
+            return this;
+        }
+
+        public ContactHelper SubmitContactModification()
+        {
+            driver.FindElement(By.XPath("(//input[@name='update'])[1]")).Click();
+            return this;
+        }
+
+   
     }
 }

@@ -12,29 +12,44 @@ namespace WebAddressbookTests
 {
     public class ApplicationManager
     {
-        protected IWebDriver Driver;
-        protected string BaseUrl;
+        protected IWebDriver driver;
+        protected string baseURL;
 
-        protected LoginHelper Loginhelper;
+        protected LoginHelper loginHelper;
         protected NavigationHelper navigator;
-        protected GroupHelper GroupHelper;
-        protected ContactHelper ContactHelper;
+        protected GroupHelper groupHelper;
+        protected ContactHelper contactHelper;
 
         
-        public ApplicationManager(IWebDriver driver)
+        public ApplicationManager()
         {
-            Driver = driver;
-            Loginhelper = new LoginHelper(Driver);
-            navigator = new NavigationHelper(Driver, "https://localhost/");
-            GroupHelper = new GroupHelper(Driver);
-            ContactHelper = new ContactHelper(Driver);
+            FirefoxOptions options = new FirefoxOptions
+
+            {
+                BrowserExecutableLocation = @"c:\Program Files\Mozilla Firefox\firefox.exe",
+                UseLegacyImplementation = true
+            };
+            driver = new FirefoxDriver(options);
+            baseURL = "http://localhost/";
+
+            loginHelper = new LoginHelper(this);
+            navigator = new NavigationHelper(this, baseURL);
+            groupHelper = new GroupHelper(this);
+            contactHelper = new ContactHelper(this);
+        }
+        public IWebDriver Driver
+        {
+            get
+            {
+                return driver;
+            }
         }
 
         public void Stop()
         {
             try
             {
-                Driver.Quit();
+                driver.Quit();
             }
             catch (Exception)
             {
@@ -46,7 +61,7 @@ namespace WebAddressbookTests
         {
             get
             {
-                return Loginhelper;
+                return loginHelper;
             }
 
         }
@@ -63,14 +78,16 @@ namespace WebAddressbookTests
         {
             get
             {
-                return ContactHelper;
+                return contactHelper;
             }
         }
 
         public GroupHelper Groups
         {
-            get { return GroupHelper; }
+            get
+            {
+                return groupHelper;
+            }
         }
-
     }
 }
