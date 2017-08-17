@@ -98,5 +98,10 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("edit")).Click();
             return this;
         }
+
+        public bool ThereAreGroup()
+        {
+            return IsElementPresent(By.XPath("(//input[@name='selected[1]'])"));
+        }
     }
-}
+ }

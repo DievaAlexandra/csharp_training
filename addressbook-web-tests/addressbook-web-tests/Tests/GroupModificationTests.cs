@@ -12,9 +12,13 @@ namespace WebAddressbookTests
     public class GroupModificationTests : AuthTestBase
     {
         [Test]
-
+        
         public void GroupModificationTest()
         {
+            if (! app.Groups.ThereAreGroup())
+            {
+                app.Groups.Create(new GroupData("группакоторая"));
+            }
             GroupData newData = new GroupData("tadaaaaaaam");
             newData.Header = null;
             newData.Footer = null;

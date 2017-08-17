@@ -13,9 +13,12 @@ namespace WebAddressbookTests
         [Test]
         public void ContactModificationTest()
         {
-
-            UserData user = new UserData("еслитывидишьэтозначитконтактобновился","gazprom","bank");
-            app.Contacts.Modify(1, user);
+            if (! app.Contacts.ThereAreContacts())
+            {
+                app.Contacts.Create(new UserData("небыло","контактов","создаем"));
+            }
+           UserData user = new UserData("еслитывидишьэтозначитконтактобновился","gazprom","бу");
+           app.Contacts.Modify(1, user);
         }
     }
 }

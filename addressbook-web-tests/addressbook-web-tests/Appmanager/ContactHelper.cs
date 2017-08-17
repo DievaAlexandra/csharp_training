@@ -75,18 +75,7 @@ namespace WebAddressbookTests
 
         public ContactHelper SelectContact(int v)
         {
-            if (IsElementPresent(By.CssSelector("img[alt=\"Details\"]")))
-            {
-                driver.FindElement(By.XPath("(//input[@name='selected[]'])[1]")).Click();
-            }
-            else
-            {
-                GoToCreateContactPage();
-                FillContactForm(new UserData("alisa", "grozny", "durachok"));
-                SubmitContactCreation();
-                manager.Navigator.GoToHomePage();
-            }
-           
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + v + "]")).Click();
             return this;
         }
         public ContactHelper SubmitContactCreation()
@@ -105,6 +94,11 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("(//input[@name='update'])[1]")).Click();
             return this;
         }
-        
+
+        public bool ThereAreContacts()
+        {
+            return IsElementPresent(By.CssSelector("img[alt=\"Details\"]"));
+        }
+
     }
 }

@@ -16,6 +16,10 @@ namespace WebAddressbookTests
         [Test]
         public void GroupRemovalTest()
         {
+            if (! app.Groups.ThereAreGroup())
+            {
+                app.Groups.Create(new GroupData("группакоторая"));
+            }
             app.Groups.Remove(1);
        }
     }
