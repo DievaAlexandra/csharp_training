@@ -8,24 +8,24 @@ namespace WebAddressbookTests
 {
     public class GroupData
     {
-        private string _name;
-        private string _header = "";
-        private string _footer = "";
+        private string name;
+        private string header = "";
+        private string footer = "";
 
         public GroupData(string name)
         {
-            this._name = name;
+            this.name = name;
         }
      
         public string Name
         {
             get
             {
-                return _name;
+                return name;
             }
             set
             {
-                _name = value;
+                name = value;
             }                
         }
 
@@ -33,12 +33,12 @@ namespace WebAddressbookTests
         {
             get
             {
-                return _header;
+                return header;
             }
 
             set
             {
-                _header = value;
+                header = value;
             }
         }
 
@@ -46,12 +46,12 @@ namespace WebAddressbookTests
         {
             get
             {
-                return _footer;
+                return footer;
             }
 
             set
             {
-                _footer = value;
+                footer = value;
             }
         }
     }

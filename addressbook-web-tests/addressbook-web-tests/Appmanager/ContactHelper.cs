@@ -27,23 +27,20 @@ namespace WebAddressbookTests
         }
         public ContactHelper FillContactForm(UserData user)
         {
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(user.Firstname);
-            driver.FindElement(By.Name("middlename")).Clear();
-            driver.FindElement(By.Name("middlename")).SendKeys(user.Middlename);
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(user.LastName);
+            Type(By.Name("firstname"), user.Firstname);
+            Type(By.Name("middlename"), user.Middlename);
+            Type(By.Name("lastname"), user.LastName);
             return this;
         }
 
         public ContactHelper Modify(int v, UserData user)
         {
-            manager.Navigator.GoToHomePage();
-            SelectContact(v);
-            InitContactModification();
-            FillContactForm(user);
-            SubmitContactModification();
-            manager.Navigator.GoToHomePage();
+            manager.Navigator.GoToHomePage(); //внутри проверка находимся ли мы на стартовой странице. если нет, то отрабатывает метод gotohomepage если да, то ничего не делаем
+            SelectContact(v);//находим первый элемент с name = selected выбираем его
+            InitContactModification();//для этого элемента ищем кнопку edit и жмакаем ее
+            FillContactForm(user);//заполняем форму 
+            SubmitContactModification();//подтверждаем изменение
+            manager.Navigator.GoToHomePage();//возвращаемся на стартовую страницу
             return this;
         }
 
@@ -78,7 +75,18 @@ namespace WebAddressbookTests
 
         public ContactHelper SelectContact(int v)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[1]")).Click();
+            if (IsElementPresent(By.CssSelector("img[alt=\"Details\"]")))
+            {
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[1]")).Click();
+            }
+            else
+            {
+                GoToCreateContactPage();
+                FillContactForm(new UserData("alisa", "grozny", "durachok"));
+                SubmitContactCreation();
+                manager.Navigator.GoToHomePage();
+            }
+           
             return this;
         }
         public ContactHelper SubmitContactCreation()
@@ -97,7 +105,6 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("(//input[@name='update'])[1]")).Click();
             return this;
         }
-
-   
+        
     }
 }

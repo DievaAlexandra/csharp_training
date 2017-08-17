@@ -10,14 +10,13 @@ using OpenQA.Selenium.Support.UI;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class AddNewContact : TestBase
+    public class AddNewContact : AuthTestBase
     {
       [Test]
         public void AddNewContactTest()
         {
             UserData contact = new UserData("alisa", "grozny", "durachok");
             app.Contacts.Create(contact);
-            app.Auth.Logout();
         }
     }
 }
