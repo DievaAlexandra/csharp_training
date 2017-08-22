@@ -21,14 +21,13 @@ namespace WebAddressbookTests
             manager.Navigator.GoToHomePage();
 
             GoToCreateContactPage();
-            FillContactForm(new UserData("alisa", "grozny", "durachok"));
+            FillContactForm(new UserData("alisa", "grozny"));
             SubmitContactCreation();
           return this;
         }
         public ContactHelper FillContactForm(UserData user)
         {
             Type(By.Name("firstname"), user.Firstname);
-            Type(By.Name("middlename"), user.Middlename);
             Type(By.Name("lastname"), user.LastName);
             return this;
         }
@@ -75,7 +74,7 @@ namespace WebAddressbookTests
 
         public ContactHelper SelectContact(int v)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + v + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (v+1) + "]")).Click();
             return this;
         }
         public ContactHelper SubmitContactCreation()
@@ -100,5 +99,16 @@ namespace WebAddressbookTests
             return IsElementPresent(By.CssSelector("img[alt=\"Details\"]"));
         }
 
+        public List<UserData> GetContactList()
+        {
+            List<UserData> contacts = new List<UserData>();
+            manager.Navigator.GoToHomePage();
+            ICollection<IWebElement> elements =  driver.FindElements(By.XPath("(//table[@id='maintable']/tbody/tr[@name='entry'])"));
+            foreach (IWebElement element in elements)
+            {
+               contacts.Add(new UserData(element.Text, element.Text));
+            }
+            return contacts;
+        }
     }
 }

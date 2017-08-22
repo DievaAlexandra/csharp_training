@@ -15,10 +15,10 @@ namespace WebAddressbookTests
         {
             if (! app.Contacts.ThereAreContacts())
             {
-                app.Contacts.Create(new UserData("небыло","контактов","создаем"));
+                app.Contacts.Create(new UserData("небыло","контактов"));
             }
-           UserData user = new UserData("еслитывидишьэтозначитконтактобновился","gazprom","бу");
-           app.Contacts.Modify(1, user);
+           UserData user = new UserData("еслитывидишьэтозначитконтактобновился","gazprom");
+           app.Contacts.Modify(0, user);
         }
     }
 }

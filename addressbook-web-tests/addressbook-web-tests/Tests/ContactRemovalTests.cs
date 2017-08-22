@@ -15,9 +15,16 @@ namespace WebAddressbookTests
         {
             if (!app.Contacts.ThereAreContacts())
             {
-                app.Contacts.Create(new UserData("небыло", "контактов", "создаем"));
+                app.Contacts.Create(new UserData("небыло", "контактов"));
             }
-            app.Contacts.Remove(1);
+            List<UserData> oldContactList = app.Contacts.GetContactList();
+
+            app.Contacts.Remove(0);
+
+            List<UserData> newContactList = app.Contacts.GetContactList();
+
+            oldContactList.RemoveAt(0);
+            Assert.AreEqual(oldContactList,newContactList);
 
         }
     }

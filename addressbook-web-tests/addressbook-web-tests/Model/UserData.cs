@@ -6,21 +6,19 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-   public class UserData
-    {
+   public class UserData : IEquatable<UserData>, IComparable<UserData>
+   {
         private string firstname;
-        private string middlename;
         private string lastname;
         
 
-        public UserData(string firstname, string middlename, string lastname)
+        public UserData(string lastname, string firstname)
         {
-            this.firstname = firstname;
-            this.middlename = middlename;
             this.lastname = lastname;
+            this.firstname = firstname;
         }
 
-        public string Firstname
+      public string Firstname
         {
             get
             {
@@ -32,19 +30,7 @@ namespace WebAddressbookTests
             }
         }
 
-        public string Middlename
-        {
-            get
-            {
-                return middlename;
-            }
-
-            set
-            {
-                middlename = value;
-            }
-        }
-        public string LastName
+      public string LastName
         {
             get
             {
@@ -57,6 +43,42 @@ namespace WebAddressbookTests
             }
         }
 
-    }
+        public bool Equals(UserData other)//метод сравнения списка контактов
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return string.Equals(firstname, other.firstname) && string.Equals(lastname, other.lastname);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+       public override string ToString()
+          {
+            return "name=" + firstname;
+          }
+
+
+       public int CompareTo(UserData other)
+       {
+
+           if (other == null) return 1;
+           if (ReferenceEquals(this, other)) return 0;
+
+           var lastNameCompare = String.CompareOrdinal(this.lastname, other.lastname);
+           
+
+           if (lastNameCompare != 0)
+           {
+               return lastNameCompare;
+
+           }
+           var firstNameCompare = String.CompareOrdinal(this.firstname, other.firstname);
+           return firstNameCompare;
+            
+        }
+   }
 }
 

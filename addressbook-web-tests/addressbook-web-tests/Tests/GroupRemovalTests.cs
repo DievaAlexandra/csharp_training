@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -16,11 +17,17 @@ namespace WebAddressbookTests
         [Test]
         public void GroupRemovalTest()
         {
-            if (! app.Groups.ThereAreGroup())
-            {
-                app.Groups.Create(new GroupData("группакоторая"));
-            }
-            app.Groups.Remove(1);
-       }
+           if (!app.Groups.ThereAreGroup()) //Если групп нет в списке значит создаем группу
+                app.Groups.Create(new GroupData("перваягруппа"));
+
+            List<GroupData> oldGroups = app.Groups.GetGroupList();//смотрим список групп старый
+
+            app.Groups.Remove(0); //удаляем группу
+
+            List<GroupData> newGroups = app.Groups.GetGroupList(); //смотрим список групп новый
+
+            oldGroups.RemoveAt(0);
+            Assert.AreEqual(oldGroups, newGroups); //сравниваем список групп старый и новый
+        }
     }
 }

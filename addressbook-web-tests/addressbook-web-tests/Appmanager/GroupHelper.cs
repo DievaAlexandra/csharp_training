@@ -78,7 +78,7 @@ namespace WebAddressbookTests
         public GroupHelper SelectGroup(int index)
         {
           
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
             return this;
         }
         public GroupHelper RemoveGroup()
@@ -102,6 +102,18 @@ namespace WebAddressbookTests
         public bool ThereAreGroup()
         {
             return IsElementPresent(By.XPath("(//input[@name='selected[1]'])"));
+        }
+
+        public List<GroupData> GetGroupList()
+        {
+            List<GroupData> groups = new List<GroupData>(); //создаем новый элемент списка
+            manager.Navigator.GoToGroupsPage();//переходим на страницу групп
+            ICollection <IWebElement> elements =  driver.FindElements(By.CssSelector("span.group"));//находим все элементы имеющие тэг SPAN и класс GROUP
+            foreach (IWebElement element in elements)//цикл для обработки всех элементов в списке элементы
+            {
+                groups.Add(new GroupData(element.Text));
+            }
+            return groups;
         }
     }
  }
