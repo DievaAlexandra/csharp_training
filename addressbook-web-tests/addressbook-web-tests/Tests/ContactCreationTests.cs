@@ -18,15 +18,15 @@ namespace WebAddressbookTests
         {
             UserData contact = new UserData("alisa", "grozny");
 
-            List<UserData> oldContactList = app.Contacts.GetContactList(); //получаем старый список контактов
+            List<UserData> oldContactList = app.Contacts.GetContactList();
 
-            app.Contacts.Create(contact); //добавляем новый контакт
+            app.Contacts.Create(contact);
 
-            List<UserData> newcContactList = app.Contacts.GetContactList();//получаем новый список контактов 
+            List<UserData> newcContactList = app.Contacts.GetContactList();
             oldContactList.Add(contact);
-            oldContactList.Sort();//сортируем старый список
-            newcContactList.Sort();//сортируем новый список
-            Assert.AreEqual(oldContactList, newcContactList);//сверяем два списка
+            oldContactList.Sort();
+            newcContactList.Sort();
+            Assert.AreEqual(oldContactList, newcContactList);
             
         }
    }

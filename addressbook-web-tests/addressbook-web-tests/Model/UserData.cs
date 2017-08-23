@@ -8,46 +8,21 @@ namespace WebAddressbookTests
 {
    public class UserData : IEquatable<UserData>, IComparable<UserData>
    {
-        private string firstname;
-        private string lastname;
-        
-
-        public UserData(string lastname, string firstname)
+       public UserData(string lastname, string firstname)
         {
-            this.lastname = lastname;
-            this.firstname = firstname;
+            LastName = lastname;
+            Firstname = firstname;
         }
 
-      public string Firstname
-        {
-            get
-            {
-                return firstname;
-            }
-            set
-            {
-                firstname = value;
-            }
-        }
+      public string Firstname { get; set; }
 
-      public string LastName
-        {
-            get
-            {
-                return lastname;
-            }
+       public string LastName { get; set; }
 
-            set
-            {
-                lastname = value;
-            }
-        }
-
-        public bool Equals(UserData other)//метод сравнения списка контактов
+       public bool Equals(UserData other)//метод сравнения списка контактов
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return string.Equals(firstname, other.firstname) && string.Equals(lastname, other.lastname);
+            return string.Equals(Firstname, other.Firstname) && string.Equals(LastName, other.LastName);
         }
 
         public override int GetHashCode()
@@ -57,7 +32,7 @@ namespace WebAddressbookTests
 
        public override string ToString()
           {
-            return "name=" + firstname;
+            return "name=" + Firstname;
           }
 
 
@@ -67,7 +42,7 @@ namespace WebAddressbookTests
            if (other == null) return 1;
            if (ReferenceEquals(this, other)) return 0;
 
-           var lastNameCompare = String.CompareOrdinal(this.lastname, other.lastname);
+           var lastNameCompare = String.CompareOrdinal(this.LastName, other.LastName);
            
 
            if (lastNameCompare != 0)
@@ -75,7 +50,7 @@ namespace WebAddressbookTests
                return lastNameCompare;
 
            }
-           var firstNameCompare = String.CompareOrdinal(this.firstname, other.firstname);
+           var firstNameCompare = String.CompareOrdinal(this.Firstname, other.Firstname);
            return firstNameCompare;
             
         }

@@ -57,6 +57,7 @@ namespace WebAddressbookTests
         public ContactHelper SubmitDeleteContact()
         {
             driver.SwitchTo().Alert().Accept();
+            contactCache = null;
             return this;
         }
 
@@ -80,6 +81,7 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[1]")).Click();
+            contactCache = null;
             return this;
         }
         public ContactHelper InitContactModification()
@@ -91,6 +93,7 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.XPath("(//input[@name='update'])[1]")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -99,16 +102,24 @@ namespace WebAddressbookTests
             return IsElementPresent(By.CssSelector("img[alt=\"Details\"]"));
         }
 
+        private List<UserData> contactCache = null;
+
         public List<UserData> GetContactList()
         {
-            List<UserData> contacts = new List<UserData>();
-            manager.Navigator.GoToHomePage();
-            ICollection<IWebElement> elements =  driver.FindElements(By.XPath("(//table[@id='maintable']/tbody/tr[@name='entry'])"));
-            foreach (IWebElement element in elements)
+            if (contactCache == null)
             {
-               contacts.Add(new UserData(element.Text, element.Text));
+                contactCache = new List<UserData>();
+                manager.Navigator.GoToHomePage();
+                ICollection<IWebElement> elements = driver.FindElements(By.XPath("(.//*[@id='maintable']/tbody/tr/td[2])"));
+
+                foreach (IWebElement element in elements)
+                {
+                    
+                    contactCache.Add(new UserData(element.Text, element.Text));
+                }
+
             }
-            return contacts;
+           return new List<UserData>(contactCache);
         }
     }
 }
