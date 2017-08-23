@@ -110,16 +110,16 @@ namespace WebAddressbookTests
             {
                 contactCache = new List<UserData>();
                 manager.Navigator.GoToHomePage();
-                ICollection<IWebElement> elements = driver.FindElements(By.XPath("(.//*[@id='maintable']/tbody/tr/td[2])"));
-
-                foreach (IWebElement element in elements)
-                {
+                ICollection<IWebElement> element1 = driver.FindElements(By.XPath("(.//*[@id='maintable']/tbody/tr/td[2])"));
+                ICollection<IWebElement> element2 = driver.FindElements(By.XPath("(.//*[@id='maintable']/tbody/tr/td[3])"));
+              //  for ()
+        //        {
                     
-                    contactCache.Add(new UserData(element.Text, element.Text));
-                }
+      //             contactCache.Add(new UserData(???));
+             //   }
 
             }
-           return new List<UserData>(contactCache);
+           return contactCache;
         }
     }
 }
