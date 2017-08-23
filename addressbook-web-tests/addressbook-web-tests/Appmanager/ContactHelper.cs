@@ -21,7 +21,7 @@ namespace WebAddressbookTests
             manager.Navigator.GoToHomePage();
 
             GoToCreateContactPage();
-            FillContactForm(new UserData("саша", "устала"));
+            FillContactForm(contact);
             SubmitContactCreation();
           return this;
         }
@@ -32,14 +32,14 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper Modify(int v, UserData user)
+        public ContactHelper Modify(int v, UserData contact)
         {
-            manager.Navigator.GoToHomePage(); //внутри проверка находимся ли мы на стартовой странице. если нет, то отрабатывает метод gotohomepage если да, то ничего не делаем
-            SelectContact(v);//находим первый элемент с name = selected выбираем его
-            InitContactModification();//для этого элемента ищем кнопку edit и жмакаем ее
-            FillContactForm(user);//заполняем форму 
-            SubmitContactModification();//подтверждаем изменение
-            manager.Navigator.GoToHomePage();//возвращаемся на стартовую страницу
+            manager.Navigator.GoToHomePage();
+            SelectContact(v);
+            InitContactModification();
+            FillContactForm(contact);
+            SubmitContactModification();
+            manager.Navigator.GoToHomePage();
             return this;
         }
 
@@ -126,6 +126,11 @@ namespace WebAddressbookTests
 
             }
             return contactCache;
+        }
+
+        public int GetContactCount()
+        {
+            return driver.FindElements(By.XPath("(.//*[@id='maintable']/tbody/tr)")).Count;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace WebAddressbookTests
       [Test]
         public void ContactCreationTest()
         {
-            UserData contact = new UserData("саша", "устала");
+            UserData contact = new UserData("vgergre", "ergergerg");
 
             List<UserData> oldContactList = app.Contacts.GetContactList();
 
@@ -29,6 +29,24 @@ namespace WebAddressbookTests
             newcContactList.Sort();
             Assert.AreEqual(oldContactList, newcContactList);
             
+        }
+
+        [Test]
+
+        public void ContactCreationTestInvalid()
+        {
+            UserData contact = new UserData("сэ'", "hk'");
+
+            List<UserData> oldContactList = app.Contacts.GetContactList();
+
+            app.Contacts.Create(contact);
+
+            List<UserData> newcContactList = app.Contacts.GetContactList();
+            oldContactList.Add(contact);
+            oldContactList.Sort();
+            newcContactList.Sort();
+            Assert.AreEqual(oldContactList, newcContactList);
+
         }
     }
 }
