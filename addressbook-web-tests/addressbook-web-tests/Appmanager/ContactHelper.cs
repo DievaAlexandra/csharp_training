@@ -21,7 +21,7 @@ namespace WebAddressbookTests
             manager.Navigator.GoToHomePage();
 
             GoToCreateContactPage();
-            FillContactForm(new UserData("alisa", "grozny"));
+            FillContactForm(new UserData("саша", "устала"));
             SubmitContactCreation();
           return this;
         }
@@ -104,22 +104,28 @@ namespace WebAddressbookTests
 
         private List<UserData> contactCache = null;
 
+
         public List<UserData> GetContactList()
         {
             if (contactCache == null)
             {
                 contactCache = new List<UserData>();
                 manager.Navigator.GoToHomePage();
-                ICollection<IWebElement> element1 = driver.FindElements(By.XPath("(.//*[@id='maintable']/tbody/tr/td[2])"));
-                ICollection<IWebElement> element2 = driver.FindElements(By.XPath("(.//*[@id='maintable']/tbody/tr/td[3])"));
-              //  for ()
-        //        {
+                ICollection<IWebElement> elements = driver.FindElements(By.XPath("(.//*[@id='maintable']/tbody/tr)"));
+
+                foreach (IWebElement row in elements)
+                {
+
+                    ICollection<IWebElement>  cells = row.FindElements(By.TagName("td"));
+                    if (cells.Count > 2)
+                    {
+                        contactCache.Add(new UserData(cells.ElementAt(1).Text, cells.ElementAt(2).Text));
+                    }
                     
-      //             contactCache.Add(new UserData(???));
-             //   }
+                }
 
             }
-           return contactCache;
+            return contactCache;
         }
     }
 }

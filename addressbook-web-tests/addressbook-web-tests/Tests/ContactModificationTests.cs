@@ -17,8 +17,19 @@ namespace WebAddressbookTests
             {
                 app.Contacts.Create(new UserData("небыло","контактов"));
             }
-           UserData user = new UserData("еслитывидишьэтозначитконтактобновился","gazprom");
-           app.Contacts.Modify(0, user);
+
+            UserData user = new UserData("еслитывидишьэтозначитконтактобновился","gazprom");
+
+            List<UserData> oldContactList = app.Contacts.GetContactList();
+
+            app.Contacts.Modify(0, user);
+
+            List<UserData> newcContactList = app.Contacts.GetContactList();
+            oldContactList[1].Firstname = user.Firstname;
+            oldContactList[1].LastName = user.LastName;
+            oldContactList.Sort();
+            newcContactList.Sort();
+            Assert.AreEqual(oldContactList, newcContactList);
         }
     }
 }

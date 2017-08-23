@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -16,7 +17,7 @@ namespace WebAddressbookTests
       [Test]
         public void ContactCreationTest()
         {
-            UserData contact = new UserData("alisa", "grozny");
+            UserData contact = new UserData("саша", "устала");
 
             List<UserData> oldContactList = app.Contacts.GetContactList();
 
@@ -29,5 +30,5 @@ namespace WebAddressbookTests
             Assert.AreEqual(oldContactList, newcContactList);
             
         }
-   }
+    }
 }

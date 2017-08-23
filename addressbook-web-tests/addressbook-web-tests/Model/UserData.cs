@@ -27,12 +27,12 @@ namespace WebAddressbookTests
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+           return Tuple.Create(Firstname, LastName).GetHashCode();
         }
 
        public override string ToString()
           {
-            return "name=" + Firstname;
+            return "name=" +  LastName +  Firstname;
           }
 
 
