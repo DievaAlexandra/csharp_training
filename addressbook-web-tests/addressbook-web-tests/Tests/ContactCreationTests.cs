@@ -17,11 +17,13 @@ namespace WebAddressbookTests
       [Test]
         public void ContactCreationTest()
         {
-            UserData contact = new UserData("vgergre", "ergergerg");
+            UserData contact = new UserData("тестовый", "тест");
 
             List<UserData> oldContactList = app.Contacts.GetContactList();
 
             app.Contacts.Create(contact);
+
+            Assert.AreEqual(oldContactList.Count + 1, app.Contacts.GetContactCount());
 
             List<UserData> newcContactList = app.Contacts.GetContactList();
             oldContactList.Add(contact);
@@ -40,6 +42,8 @@ namespace WebAddressbookTests
             List<UserData> oldContactList = app.Contacts.GetContactList();
 
             app.Contacts.Create(contact);
+
+            Assert.AreEqual(oldContactList.Count + 1, app.Contacts.GetContactCount());
 
             List<UserData> newcContactList = app.Contacts.GetContactList();
             oldContactList.Add(contact);

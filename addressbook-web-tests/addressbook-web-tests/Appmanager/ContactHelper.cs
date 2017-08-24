@@ -22,7 +22,8 @@ namespace WebAddressbookTests
             GoToCreateContactPage();
             FillContactForm(contact);
             SubmitContactCreation();
-          return this;
+            manager.Navigator.GoToHomePage();
+            return this;
         }
         public ContactHelper FillContactForm(UserData user)
         {
@@ -124,6 +125,11 @@ namespace WebAddressbookTests
 
             }
             return contactCache;
+        }
+
+        public int GetContactCount()
+        {
+            return driver.FindElements(By.XPath("(.//*[@id='maintable']/tbody/tr/td[8]/a/img)")).Count;
         }
     }
 }
