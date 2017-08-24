@@ -17,21 +17,21 @@ namespace WebAddressbookTests
         [Test]
         public void GroupRemovalTest()
         {
-           if (!app.Groups.ThereAreGroup()) //Если групп нет в списке значит создаем группу
+           if (!app.Groups.ThereAreGroup())
                 app.Groups.Create(new GroupData("перваягруппа"));
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList();//смотрим список групп старый
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
 
 
-            app.Groups.Remove(0); //удаляем группу
+            app.Groups.Remove(0);
 
             Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount());
 
-            List<GroupData> newGroups = app.Groups.GetGroupList(); //смотрим список групп новый
+            List<GroupData> newGroups = app.Groups.GetGroupList();
 
             GroupData toBeRemoved = oldGroups[0];
             oldGroups.RemoveAt(0);
-            Assert.AreEqual(oldGroups, newGroups); //сравниваем список групп старый и новый
+            Assert.AreEqual(oldGroups, newGroups);
 
             foreach (GroupData group in newGroups)
             {

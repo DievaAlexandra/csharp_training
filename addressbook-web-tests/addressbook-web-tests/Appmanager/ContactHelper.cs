@@ -19,7 +19,6 @@ namespace WebAddressbookTests
         public ContactHelper Create(UserData contact)
         {
             manager.Navigator.GoToHomePage();
-
             GoToCreateContactPage();
             FillContactForm(contact);
             SubmitContactCreation();
@@ -46,7 +45,6 @@ namespace WebAddressbookTests
         public ContactHelper Remove(int i)
         {
             manager.Navigator.GoToHomePage();
-
             SelectContact(i);
             DeleteContact();
             SubmitDeleteContact();
@@ -126,11 +124,6 @@ namespace WebAddressbookTests
 
             }
             return contactCache;
-        }
-
-        public int GetContactCount()
-        {
-            return driver.FindElements(By.XPath("(.//*[@id='maintable']/tbody/tr)")).Count;
         }
     }
 }
