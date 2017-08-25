@@ -22,13 +22,13 @@ namespace WebAddressbookTests
 
             List<UserData> oldContactList = app.Contacts.GetContactList();
 
-            app.Contacts.Modify(0, user);
+            app.Contacts.Modify(3, user);
 
             Assert.AreEqual(oldContactList.Count, app.Contacts.GetContactCount());
 
             List<UserData> newcContactList = app.Contacts.GetContactList();
-            oldContactList[1].Firstname = user.Firstname;
-            oldContactList[1].LastName = user.LastName;
+            oldContactList[3].Firstname = user.Firstname;
+            oldContactList[3].LastName = user.LastName;
             oldContactList.Sort();
             newcContactList.Sort();
             Assert.AreEqual(oldContactList, newcContactList);

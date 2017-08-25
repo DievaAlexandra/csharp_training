@@ -32,11 +32,10 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper Modify(int v, UserData contact)
+        public ContactHelper Modify(int i, UserData contact)
         {
             manager.Navigator.GoToHomePage();
-            SelectContact(v);
-            InitContactModification();
+            InitContactModification(i);
             FillContactForm(contact);
             SubmitContactModification();
             manager.Navigator.GoToHomePage();
@@ -72,9 +71,9 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper SelectContact(int v)
-        {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (v+1) + "]")).Click();
+       public ContactHelper SelectContact(int i)
+       {
+           driver.FindElement(By.XPath("(//input[@name='selected[]'])[i]")).Click();
             return this;
         }
         public ContactHelper SubmitContactCreation()
@@ -83,9 +82,9 @@ namespace WebAddressbookTests
             contactCache = null;
             return this;
         }
-        public ContactHelper InitContactModification()
+        public ContactHelper InitContactModification(int i)
         {
-            driver.FindElement(By.CssSelector("img[alt=\"Edit\"]")).Click();
+            driver.FindElements(By.CssSelector("img[alt=\"Edit\"]"))[i].Click();
             return this;
         }
 
