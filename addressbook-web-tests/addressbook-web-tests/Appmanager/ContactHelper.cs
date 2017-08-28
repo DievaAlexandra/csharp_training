@@ -73,7 +73,7 @@ namespace WebAddressbookTests
 
        public ContactHelper SelectContact(int i)
        {
-           driver.FindElement(By.XPath("(//input[@name='selected[]'])[i]")).Click();
+           driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (i + 1) + "]")).Click();
             return this;
         }
         public ContactHelper SubmitContactCreation()
