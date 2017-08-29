@@ -33,7 +33,7 @@ namespace WebAddressbookTests
 
         public override string ToString()//метод вернет строковое представление объектов GroupData
         {
-            return "name=" + Name;
+            return "name=" + Name + "\nheader= " + Header + "\nfooter="  + Footer;
         }
 
         public int CompareTo(GroupData other)

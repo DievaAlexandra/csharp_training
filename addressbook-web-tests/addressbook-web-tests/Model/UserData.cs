@@ -105,8 +105,8 @@ namespace WebAddressbookTests
 
        public override string ToString()
           {
-            return "name=" +  LastName +  Firstname;
-          }
+            return "firstname= " + Firstname + " \nlastname= " + LastName;
+        }
 
 
        public int CompareTo(UserData other)
