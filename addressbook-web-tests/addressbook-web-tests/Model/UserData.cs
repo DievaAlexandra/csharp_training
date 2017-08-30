@@ -58,7 +58,7 @@ namespace WebAddressbookTests
                }
                else
                {
-                   return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
+                   return (CleanUpPhone(HomePhone) + CleanUpPhone(MobilePhone) + CleanUpPhone(WorkPhone)).Trim();
                }
            }
            set
@@ -68,7 +68,7 @@ namespace WebAddressbookTests
            }
        }
 
-        private string CleanUp(string phone)
+        private string CleanUpPhone(string phone)
        {
            if (phone == null || phone == "")
            {

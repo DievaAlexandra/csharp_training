@@ -166,7 +166,7 @@ namespace WebAddressbookTests
             string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
 
 
-            return new UserData(firstName, lastName)
+            return new UserData(lastName, firstName)
             {
                 Address = address,
                 HomePhone = homePhone,
@@ -178,19 +178,6 @@ namespace WebAddressbookTests
             };
 
         }
-
-        public UserData GetContactInformationFromDetails(int i)//получение данных контакта из детальной страницы контакта
-        {
-            manager.Navigator.GoToHomePage();
-            GoToDetailsPage(0);
-            string allinfo =  driver.FindElement(By.CssSelector("div#content")).Text;
-
-            string[] rows  = allinfo.Split('\n');
-
-            return new UserData(allinfo, Convert.ToString(rows));
-        }
-
-      
 
         public ContactHelper GoToDetailsPage(int i)
         {
@@ -209,6 +196,17 @@ namespace WebAddressbookTests
             string text =  driver.FindElement(By.Id("search_count")).Text;
             return Int32.Parse(text);
         }
+
+
+       public string GetContactInformationFromDetails(int i)//получение данных контакта из детальной страницы контакта
+        {
+            manager.Navigator.GoToHomePage();
+            GoToDetailsPage(0);
+            string detinfo = driver.FindElement(By.CssSelector("div#content")).Text;
+
+            return detinfo;
+        }
+
 
       
     }
