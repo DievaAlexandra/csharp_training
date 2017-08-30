@@ -84,11 +84,7 @@ namespace WebAddressbookTests
             contactCache = null;
             return this;
         }
-        public ContactHelper InitContactModification(int i)
-        {
-            driver.FindElements(By.CssSelector("img[alt=\"Edit\"]"))[i].Click();
-            return this;
-        }
+    
 
         public ContactHelper SubmitContactModification()
         {
@@ -153,7 +149,7 @@ namespace WebAddressbookTests
 
         }
 
-        public UserData GetContactInformationFromEditForm(int i)
+        public UserData GetContactInformationFromEditForm(int i) //получение данных контакта из формы редактирования
         {
             manager.Navigator.GoToHomePage();
             InitContactModification(0);
@@ -183,11 +179,37 @@ namespace WebAddressbookTests
 
         }
 
+        public UserData GetContactInformationFromDetails(int i)//получение данных контакта из детальной страницы контакта
+        {
+            manager.Navigator.GoToHomePage();
+            GoToDetailsPage(0);
+            string allinfo =  driver.FindElement(By.CssSelector("div#content")).Text;
+
+            string[] rows  = allinfo.Split('\n');
+
+            return new UserData(allinfo, Convert.ToString(rows));
+        }
+
+      
+
+        public ContactHelper GoToDetailsPage(int i)
+        {
+            driver.FindElements(By.CssSelector("img[alt=\"Details\"]"))[i].Click();
+            return this;
+        }
+
+        public ContactHelper InitContactModification(int i)
+        {
+            driver.FindElements(By.CssSelector("img[alt=\"Edit\"]"))[i].Click();
+            return this;
+        }
         public int GetNumberOfSearchResults()
         {
             manager.Navigator.GoToHomePage();
             string text =  driver.FindElement(By.Id("search_count")).Text;
             return Int32.Parse(text);
         }
+
+      
     }
 }

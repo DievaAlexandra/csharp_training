@@ -18,15 +18,27 @@ namespace WebAddressbookTests
         public void TestContactInformation()
         {
            UserData fromTable = app.Contacts.GetContactInformationFromTable(0);
-           UserData fromForm = app.Contacts.GetContactInformationFromEditForm(0);
+           UserData fromEditForm = app.Contacts.GetContactInformationFromEditForm(0);
 
-            //проверки какие то
-            Assert.AreEqual(fromTable,fromForm);
-            Assert.AreEqual(fromTable.Address, fromForm.Address);
-            Assert.AreEqual(fromTable.AllEmails, fromForm.AllEmails);
-            Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);
+          
+            Assert.AreEqual(fromTable,fromEditForm);
+            Assert.AreEqual(fromTable.Address, fromEditForm.Address);
+            Assert.AreEqual(fromTable.AllEmails, fromEditForm.AllEmails);
+            Assert.AreEqual(fromTable.AllPhones, fromEditForm.AllPhones);
         }
 
-      
+        [Test]
+
+        public void TestDetailsInformation()
+        {
+            UserData fromDetailsForm = app.Contacts.GetContactInformationFromDetails(0);
+            UserData fromEditForm = app.Contacts.GetContactInformationFromEditForm(0);
+
+
+            Assert.AreEqual(fromDetailsForm, fromEditForm);
+         
+        }
+
+
     }
 }
