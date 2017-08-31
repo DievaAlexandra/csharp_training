@@ -139,7 +139,7 @@ namespace WebAddressbookTests
             string allEmails = cells[4].Text;
             string allPhones = cells[5].Text;
 
-            return new UserData(firstName, lastName)
+            return new UserData(lastName, firstName)
             {
                 Address = address,
                 AllEmails = allEmails,
