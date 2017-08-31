@@ -33,22 +33,22 @@ namespace WebAddressbookTests
 
         public void TestDetailsInformation()
         {
-            
-            
+           
             string fromDetailsForm = app.Contacts.GetContactInformationFromDetails(0);//метод получения инфы из детальной
             UserData fromEditForm = app.Contacts.GetContactInformationFromEditForm(0);
-            string glue = String.Format(
-                "{0} {1}\r\n{2}\r\n\r\nH: {3}\r\nM: {4}\r\nW: {5}\r\n\r\n{6}\r\n{7}\r\n{8}",
-                fromEditForm.Firstname,
-                fromEditForm.LastName,
-                fromEditForm.Address,
-                fromEditForm.HomePhone,
-                fromEditForm.MobilePhone,
-                fromEditForm.WorkPhone,
-                fromEditForm.Email,
-                fromEditForm.Email2,
-                fromEditForm.Email3
-            );
+
+            string glue = (string.IsNullOrEmpty(fromEditForm.Firstname) ? "" : fromEditForm.Firstname + " ") +
+                          (string.IsNullOrEmpty(fromEditForm.LastName) ? "" : fromEditForm.LastName + "\r\n")  +
+                          (string.IsNullOrEmpty(fromEditForm.Address) ? "" : fromEditForm.Address + "\r\n") +
+                          (string.IsNullOrEmpty(fromEditForm.HomePhone) ? "" : "\r\n" + "H: " + fromEditForm.HomePhone) +
+                          (string.IsNullOrEmpty(fromEditForm.MobilePhone) ? "" : "\r\n" + "M: " + fromEditForm.MobilePhone) +
+                          (string.IsNullOrEmpty(fromEditForm.WorkPhone) ? "" : "\r\n" + "W: " + fromEditForm.WorkPhone) +
+                          (string.IsNullOrEmpty(fromEditForm.Email) ? "" : "\r\n" + "\r\n" + fromEditForm.Email) +
+                          (string.IsNullOrEmpty(fromEditForm.Email2) ? "" : "\r\n" + fromEditForm.Email2) +
+                          (string.IsNullOrEmpty(fromEditForm.Email3) ? "" : "\r\n" + fromEditForm.Email3);
+
+
+      
 
             Assert.AreEqual(fromDetailsForm, glue);
 

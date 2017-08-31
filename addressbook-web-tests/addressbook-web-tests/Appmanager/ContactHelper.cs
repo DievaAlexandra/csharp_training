@@ -152,7 +152,7 @@ namespace WebAddressbookTests
         public UserData GetContactInformationFromEditForm(int i) //получение данных контакта из формы редактирования
         {
             manager.Navigator.GoToHomePage();
-            InitContactModification(0);
+            InitContactModification(i);
             string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
@@ -201,7 +201,7 @@ namespace WebAddressbookTests
        public string GetContactInformationFromDetails(int i)//получение данных контакта из детальной страницы контакта
         {
             manager.Navigator.GoToHomePage();
-            GoToDetailsPage(0);
+            GoToDetailsPage(i);
             string detinfo = driver.FindElement(By.CssSelector("div#content")).Text;
 
             return detinfo;
