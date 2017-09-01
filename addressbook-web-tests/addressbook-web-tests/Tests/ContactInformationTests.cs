@@ -37,18 +37,28 @@ namespace WebAddressbookTests
             string fromDetailsForm = app.Contacts.GetContactInformationFromDetails(0);//метод получения инфы из детальной
             UserData fromEditForm = app.Contacts.GetContactInformationFromEditForm(0);
 
-            string glue = (string.IsNullOrEmpty(fromEditForm.Firstname) ? "" : fromEditForm.Firstname + " ") +
-                          (string.IsNullOrEmpty(fromEditForm.LastName) ? "" : fromEditForm.LastName + "\r\n")  +
-                          (string.IsNullOrEmpty(fromEditForm.Address) ? "" : fromEditForm.Address + "\r\n") +
-                          (string.IsNullOrEmpty(fromEditForm.HomePhone) ? "" : "\r\n" + "H: " + fromEditForm.HomePhone) +
-                          (string.IsNullOrEmpty(fromEditForm.MobilePhone) ? "" : "\r\n" + "M: " + fromEditForm.MobilePhone) +
-                          (string.IsNullOrEmpty(fromEditForm.WorkPhone) ? "" : "\r\n" + "W: " + fromEditForm.WorkPhone) +
-                          (string.IsNullOrEmpty(fromEditForm.Email) ? "" : "\r\n" + "\r\n" + fromEditForm.Email) +
-                          (string.IsNullOrEmpty(fromEditForm.Email2) ? "" : "\r\n" + fromEditForm.Email2) +
-                          (string.IsNullOrEmpty(fromEditForm.Email3) ? "" : "\r\n" + fromEditForm.Email3);
+            var fio = ((string.IsNullOrEmpty(fromEditForm.Firstname) ? "" : fromEditForm.Firstname) + " " +
+                       (string.IsNullOrEmpty(fromEditForm.LastName) ? "" : fromEditForm.LastName)).Trim();
+
+            var address = string.IsNullOrEmpty(fromEditForm.Address) ? "" : $"\r\n{fromEditForm.Address}";
+
+          
+
+            var hphone = string.IsNullOrEmpty(fromEditForm.HomePhone) ? "" : $"H: {fromEditForm.HomePhone}";
+            var mphone = string.IsNullOrEmpty(fromEditForm.MobilePhone) ? "" : $"\r\nM: {fromEditForm.MobilePhone}";
+            var wphone = string.IsNullOrEmpty(fromEditForm.WorkPhone) ? "" : $"\r\nW: {fromEditForm.WorkPhone}";
+
+            var phones = string.IsNullOrEmpty($"{hphone}{mphone}{wphone}") ? "" : $"{hphone}{mphone}{wphone}\r\n\r\n";
+
+            var email = string.IsNullOrEmpty(fromEditForm.Email) ? "" : fromEditForm.Email;
+            var email2 = string.IsNullOrEmpty(fromEditForm.Email2) ? "" : $"\r\n{fromEditForm.Email2}";
+            var email3 = string.IsNullOrEmpty(fromEditForm.Email3) ? "" : $"\r\n{fromEditForm.Email3}";
 
 
-      
+            
+            var glue = ($"{fio}{address}\r\n\r\n" +
+                        $"{phones}" +
+                        $"{email}{email2}{email3}").Trim();
 
             Assert.AreEqual(fromDetailsForm, glue);
 
