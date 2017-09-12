@@ -41,6 +41,17 @@ namespace WebAddressbookTests
             return this;
         }
 
+        //изменение по id в БД
+        public ContactHelper Modify(UserData contact)
+        {
+            manager.Navigator.GoToHomePage();
+            InitContactModification(contact.Id);
+            FillContactForm(contact);
+            SubmitContactModification();
+            manager.Navigator.GoToHomePage();
+            return this;
+        }
+
         //удаление по индексу в UI
         public ContactHelper Remove(int i)
         {
@@ -87,13 +98,6 @@ namespace WebAddressbookTests
         public ContactHelper SelectContact(int i)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (i + 1) + "]")).Click();
-            return this;
-        }
-
-        //выбор элемента из списка DB
-       public ContactHelper SelectContact(String id)
-        {
-            driver.FindElement(By.XPath("(.//*[@id='" + id +  "'])")).Click();
             return this;
         }
 
@@ -175,13 +179,26 @@ namespace WebAddressbookTests
             return this;
         }
 
+        //выбор элемента из списка DB
+        public ContactHelper SelectContact(String id)
+        {
+            driver.FindElement(By.Id(id)).Click();
+            return this;
+        }
+
+        //переход на страницу редактирования БД
+        public ContactHelper InitContactModification(String id)
+        {
+            driver.FindElements(By.CssSelector("img[alt=\"Edit\"]"))[Convert.ToInt32(id)].Click();
+            return this;
+        }
+
         //переход на страницу редактирования
         public ContactHelper InitContactModification(int i)
         {
             driver.FindElements(By.CssSelector("img[alt=\"Edit\"]"))[i].Click();
             return this;
         }
-        
         //получение данных из таблицы
         public UserData GetContactInformationFromTable(int i)
         {
@@ -242,5 +259,33 @@ namespace WebAddressbookTests
 
         }
 
+        //добавление контакта в группу 
+        public void AddContactToGroup(UserData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            ClearGroupFilter();
+            SelectContact(contact.Id);
+            SelectGroupToAdd(group.Name);
+            CommitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+      
+
+        public void CommitAddingContactToGroup()
+        {
+           driver.FindElement(By.Name("add")).Click();
+        }
+
+        public void SelectGroupToAdd(string groupName)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(groupName);
+        }
+
+        public void ClearGroupFilter()
+        {
+          new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
     }
 }

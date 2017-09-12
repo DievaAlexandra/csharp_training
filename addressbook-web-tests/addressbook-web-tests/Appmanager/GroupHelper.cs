@@ -41,6 +41,18 @@ namespace WebAddressbookTests
             return this;
         }
 
+        //изменение БД
+        public GroupHelper Modify(GroupData group)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(group.Id);
+            InitGroupModification();
+            FillGroupForm(group);
+            SubmitGroupModification();
+            ReturnToGroupPage();
+            return this;
+        }
+
         //удаление по индексу Ui
         public GroupHelper Remove(int i)
         {
@@ -124,6 +136,13 @@ namespace WebAddressbookTests
             return this;
         }
 
+        //выбор действия "Изменить" БД
+        public GroupHelper InitGroupModification(String id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='edit' and @value='" + id + "'])")).Click();
+            return this;
+        }
+
         //подтверждение действия "Изменить"
         public GroupHelper SubmitGroupModification()
         {
@@ -135,7 +154,7 @@ namespace WebAddressbookTests
         //проверка наличия элементов в списке
         public bool ThereAreGroup()
         {
-            return IsElementPresent(By.XPath("(//input[@name='selected[1]'])"));
+            return IsElementPresent(By.XPath("(//input[@name='selected[]'])"));
         }
 
         private List<GroupData> groupCache = null;

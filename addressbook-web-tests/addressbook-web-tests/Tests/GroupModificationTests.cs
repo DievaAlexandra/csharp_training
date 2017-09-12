@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupModificationTests : GroupTestBase
+    public class GroupModificationTests : GroupTestBase 
     {
         [Test]
         
@@ -17,30 +17,31 @@ namespace WebAddressbookTests
         {
             if (! app.Groups.ThereAreGroup())
             {
-                app.Groups.Create(new GroupData("группакоторая"));
+               app.Groups.Create(new GroupData("группакоторая"));
             }
-            GroupData newData = new GroupData("tadaaaaaaam");
+
+            GroupData newData = new GroupData("изменение");
             newData.Header = null;
             newData.Footer = null;
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-            GroupData oldData = oldGroups[0];
+            List<GroupData> oldGroups = GroupData.GetAll();
+            GroupData toBeChanged = oldGroups[0];
 
-            app.Groups.Modify(0, newData);
+            app.Groups.Modify(toBeChanged);
 
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();
-            oldGroups[0].Name = newData.Name;
+            List<GroupData> newGroups = GroupData.GetAll();
+            toBeChanged.Name = newData.Name;
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
 
             foreach (GroupData group in newGroups)
             {
-                if (group.Id == oldData.Id)
+                if (group.Id == toBeChanged.Id)
                 {
-                    Assert.AreEqual(newData.Name, group.Name );
+                    Assert.AreEqual(group.Name, toBeChanged.Name );
                 }
             }
         }

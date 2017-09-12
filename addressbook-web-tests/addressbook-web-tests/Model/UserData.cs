@@ -36,7 +36,7 @@ namespace WebAddressbookTests
        [Column(Name = "lastname")]
        public string LastName { get; set; }
 
-       [Column(Name = "id"), PrimaryKey, Identity]
+       [Column(Name = "id"), PrimaryKey]
        public string Id { get; set; }
 
        public string Address { get; set; }
@@ -54,7 +54,7 @@ namespace WebAddressbookTests
        public string Email3 { get; set; }
 
        [Column(Name = "deprecated")]
-        public MySqlDateTime Deprecated { get; set; }
+        public string Deprecated { get; set; }
 
 
         public string AllEmails
@@ -161,7 +161,7 @@ namespace WebAddressbookTests
        {
            using (AddressBookDB db = new AddressBookDB())
            {
-              return (from c in db.Contacts orderby c.Deprecated ascending select c).ToList();
+              return (from c in db.Contacts.Where(x => x.Deprecated == "0000 - 00 - 00 00:00:00") select c).ToList();
            }
            
         }
