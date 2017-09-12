@@ -18,6 +18,8 @@ namespace WebAddressbookTests
         public ContactHelper(ApplicationManager manager): base(manager)
         {
         }
+
+        //создание 
         public ContactHelper Create(UserData contact)
         {
             manager.Navigator.GoToHomePage();
@@ -27,13 +29,8 @@ namespace WebAddressbookTests
             manager.Navigator.GoToHomePage();
             return this;
         }
-        public ContactHelper FillContactForm(UserData user)
-        {
-            Type(By.Name("firstname"), user.Firstname);
-            Type(By.Name("lastname"), user.LastName);
-            return this;
-        }
 
+        //изменение 
         public ContactHelper Modify(int i, UserData contact)
         {
             manager.Navigator.GoToHomePage();
@@ -44,6 +41,7 @@ namespace WebAddressbookTests
             return this;
         }
 
+        //удаление по индексу в UI
         public ContactHelper Remove(int i)
         {
             manager.Navigator.GoToHomePage();
@@ -54,38 +52,75 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper SubmitDeleteContact()
+        //удаление по Id в БД
+      public ContactHelper Remove(UserData contact)
         {
-            driver.SwitchTo().Alert().Accept();
-            contactCache = null;
+           manager.Navigator.GoToHomePage();
+           SelectContact(contact.Id);
+           DeleteContact();
+           SubmitDeleteContact();
+           manager.Navigator.GoToHomePage();
+           return this;
+        }
+
+        //проверка наличия элементов в списке
+        public bool ThereAreContacts()
+        {
+            return IsElementPresent(By.CssSelector("img[alt=\"Details\"]"));
+        }
+
+        //получение кол-ва элементов в списке
+        public int GetContactCount()
+        {
+            return driver.FindElements(By.XPath("(.//*[@id='maintable']/tbody/tr/td[8]/a/img)")).Count;
+        }
+
+        //получение кол-ва результата поиска
+        public int GetNumberOfSearchResults()
+        {
+            manager.Navigator.GoToHomePage();
+            string text = driver.FindElement(By.Id("search_count")).Text;
+            return Int32.Parse(text);
+        }
+
+        //выбор элемента из списка UI
+        public ContactHelper SelectContact(int i)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (i + 1) + "]")).Click();
             return this;
         }
 
-        public ContactHelper  DeleteContact()
+        //выбор элемента из списка DB
+       public ContactHelper SelectContact(String id)
         {
-            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            driver.FindElement(By.XPath("(.//*[@id='" + id +  "'])")).Click();
             return this;
         }
 
+        //переход на страницу создания
         public ContactHelper GoToCreateContactPage()
         {
             driver.FindElement(By.LinkText("add new")).Click();
             return this;
         }
 
-       public ContactHelper SelectContact(int i)
-       {
-           driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (i + 1) + "]")).Click();
+        //заполнение формы 
+        public ContactHelper FillContactForm(UserData user)
+        {
+            Type(By.Name("firstname"), user.Firstname);
+            Type(By.Name("lastname"), user.LastName);
             return this;
         }
+       
+        //подтверждение действия "Создать"
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[1]")).Click();
             contactCache = null;
             return this;
         }
-    
 
+        //подтверждение действия "Изменить"
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.XPath("(//input[@name='update'])[1]")).Click();
@@ -93,14 +128,23 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public bool ThereAreContacts()
+        //выбор действия "Удалить"
+        public ContactHelper DeleteContact()
         {
-            return IsElementPresent(By.CssSelector("img[alt=\"Details\"]"));
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            return this;
         }
 
+        //подтверждение действия "Удалить"
+        public ContactHelper SubmitDeleteContact()
+        {
+            driver.SwitchTo().Alert().Accept();
+            contactCache = null;
+            return this;
+        }
+
+        //получение списка 
         private List<UserData> contactCache = null;
-
-
         public List<UserData> GetContactList()
         {
             if (contactCache == null)
@@ -123,12 +167,22 @@ namespace WebAddressbookTests
             }
             return contactCache;
         }
-
-        public int GetContactCount()
+        
+        //переход на детальную страницу
+        public ContactHelper GoToDetailsPage(int i)
         {
-            return driver.FindElements(By.XPath("(.//*[@id='maintable']/tbody/tr/td[8]/a/img)")).Count;
+            driver.FindElements(By.CssSelector("img[alt=\"Details\"]"))[i].Click();
+            return this;
         }
 
+        //переход на страницу редактирования
+        public ContactHelper InitContactModification(int i)
+        {
+            driver.FindElements(By.CssSelector("img[alt=\"Edit\"]"))[i].Click();
+            return this;
+        }
+        
+        //получение данных из таблицы
         public UserData GetContactInformationFromTable(int i)
         {
             manager.Navigator.GoToHomePage();
@@ -145,10 +199,19 @@ namespace WebAddressbookTests
                 AllEmails = allEmails,
                 AllPhones = allPhones
             };
-
-
         }
 
+        //получение данных из детальной страницы 
+        public string GetContactInformationFromDetails(int i)
+        {
+            manager.Navigator.GoToHomePage();
+            GoToDetailsPage(i);
+            string detinfo = driver.FindElement(By.CssSelector("div#content")).Text;
+
+            return detinfo;
+        }
+
+        //получение данных из страницы редактирования
         public UserData GetContactInformationFromEditForm(int i) //получение данных контакта из формы редактирования
         {
             manager.Navigator.GoToHomePage();
@@ -179,35 +242,5 @@ namespace WebAddressbookTests
 
         }
 
-        public ContactHelper GoToDetailsPage(int i)
-        {
-            driver.FindElements(By.CssSelector("img[alt=\"Details\"]"))[i].Click();
-            return this;
-        }
-
-        public ContactHelper InitContactModification(int i)
-        {
-            driver.FindElements(By.CssSelector("img[alt=\"Edit\"]"))[i].Click();
-            return this;
-        }
-        public int GetNumberOfSearchResults()
-        {
-            manager.Navigator.GoToHomePage();
-            string text =  driver.FindElement(By.Id("search_count")).Text;
-            return Int32.Parse(text);
-        }
-
-
-       public string GetContactInformationFromDetails(int i)//получение данных контакта из детальной страницы контакта
-        {
-            manager.Navigator.GoToHomePage();
-            GoToDetailsPage(i);
-            string detinfo = driver.FindElement(By.CssSelector("div#content")).Text;
-
-            return detinfo;
-        }
-
-
-      
     }
 }

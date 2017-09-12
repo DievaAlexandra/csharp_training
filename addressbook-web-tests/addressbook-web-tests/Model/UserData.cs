@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using LinqToDB.Mapping;
+using MySql.Data.Types;
 
 
 namespace WebAddressbookTests
 {
-   public class UserData : IEquatable<UserData>, IComparable<UserData>
+    [Table(Name = "addressbook")]
+    public class UserData : IEquatable<UserData>, IComparable<UserData>
    {
        private string allPhones;
        private string allEmails;
@@ -26,17 +30,34 @@ namespace WebAddressbookTests
         }
 
         //Свойства
+       [Column(Name = "firstname")] 
        public string Firstname { get; set; }
-        public string LastName { get; set; }
+
+       [Column(Name = "lastname")]
+       public string LastName { get; set; }
+
+       [Column(Name = "id"), PrimaryKey, Identity]
+       public string Id { get; set; }
+
        public string Address { get; set; }
+        
        public string HomePhone { get; set; }
+
        public string MobilePhone { get; set; }
+
        public string WorkPhone { get; set; }
+
        public string Email { get; set; }
+
        public string Email2 { get; set; }
+
        public string Email3 { get; set; }
 
-       public string AllEmails
+       [Column(Name = "deprecated")]
+        public MySqlDateTime Deprecated { get; set; }
+
+
+        public string AllEmails
        {
            get
            {
@@ -135,6 +156,15 @@ namespace WebAddressbookTests
            return firstNameCompare;
             
         }
-   }
+
+       public static List<UserData> GetAll()
+       {
+           using (AddressBookDB db = new AddressBookDB())
+           {
+              return (from c in db.Contacts orderby c.Deprecated ascending select c).ToList();
+           }
+           
+        }
+    }
 }
 

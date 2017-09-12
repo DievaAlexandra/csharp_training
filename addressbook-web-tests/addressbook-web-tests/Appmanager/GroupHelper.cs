@@ -13,17 +13,11 @@ namespace WebAddressbookTests
     public class GroupHelper : HelperBase
     {
 
-        public GroupHelper(ApplicationManager manager)
-            : base(manager)
+        public GroupHelper(ApplicationManager manager): base(manager)
         {
         }
 
-        public GroupHelper InitGroupCreation()
-        {
-            driver.FindElement(By.Name("new")).Click();
-            return this;
-        }
-
+        //создание
         public GroupHelper Create(GroupData group)
         {
             manager.Navigator.GoToGroupsPage();
@@ -35,6 +29,7 @@ namespace WebAddressbookTests
             return this;
         }
 
+        //изменение
         public GroupHelper Modify(int v, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
@@ -46,6 +41,7 @@ namespace WebAddressbookTests
             return this;
         }
 
+        //удаление по индексу Ui
         public GroupHelper Remove(int i)
         {
             manager.Navigator.GoToGroupsPage();
@@ -56,12 +52,24 @@ namespace WebAddressbookTests
             return this;
         }
 
+        //удаление по индексу из БД
+        public GroupHelper Remove(GroupData group)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(group.Id);
+            RemoveGroup();
+            ReturnToGroupPage();
+            return this;
+        }
+
+        //возврат на страницу списка
         public GroupHelper ReturnToGroupPage()
         {
             driver.FindElement(By.LinkText("group page")).Click();
             return this;
         }
 
+        //заполнение формы
         public GroupHelper FillGroupForm(GroupData group)
         {
             Type(By.Name("group_name"), group.Name);
@@ -70,7 +78,15 @@ namespace WebAddressbookTests
             return this;
         }
 
+        //выбор действия "Создать"
+        public GroupHelper InitGroupCreation()
+        {
+            driver.FindElement(By.Name("new")).Click();
+            return this;
+        }
 
+
+        //подтверждение действия "Создать"
         public GroupHelper SubmitGroupCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
@@ -78,10 +94,19 @@ namespace WebAddressbookTests
             return this;
         }
 
+        //выбор элемента по индексу из UI
         public GroupHelper SelectGroup(int index)
         {
 
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
+            return this;
+        }
+
+        //выбор элемента по id из БД
+        public GroupHelper SelectGroup(String id)
+        {
+
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='"+id+"'])")).Click();
             return this;
         }
 
@@ -92,19 +117,22 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper SubmitGroupModification()
-        {
-            driver.FindElement(By.Name("update")).Click();
-            groupCache = null;
-            return this;
-        }
-
+        //выбор действия "Изменить"
         public GroupHelper InitGroupModification()
         {
             driver.FindElement(By.Name("edit")).Click();
             return this;
         }
 
+        //подтверждение действия "Изменить"
+        public GroupHelper SubmitGroupModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            groupCache = null;
+            return this;
+        }
+        
+        //проверка наличия элементов в списке
         public bool ThereAreGroup()
         {
             return IsElementPresent(By.XPath("(//input[@name='selected[1]'])"));
@@ -112,7 +140,7 @@ namespace WebAddressbookTests
 
         private List<GroupData> groupCache = null;
 
-
+        //получение списка элементов
         public List<GroupData> GetGroupList()
         {
             if (groupCache == null)
@@ -146,10 +174,10 @@ namespace WebAddressbookTests
             return new List<GroupData>(groupCache);
         }
 
+        //получение кол-ва элементов в списке
         public int GetGroupCount()
         {
             return  driver.FindElements(By.CssSelector("span.group")).Count;
         }
-
     }
 }

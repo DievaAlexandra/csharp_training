@@ -46,15 +46,15 @@ namespace WebAddressbookTests
         [Test, TestCaseSource("ContactDataFromXmlFile")]
         public void ContactCreationTest(UserData contact)
         {
-           
 
-            List<UserData> oldContactList = app.Contacts.GetContactList();
+
+            List<UserData> oldContactList = UserData.GetAll();
 
             app.Contacts.Create(contact);
 
             Assert.AreEqual(oldContactList.Count + 1, app.Contacts.GetContactCount());
 
-            List<UserData> newcContactList = app.Contacts.GetContactList();
+            List<UserData> newcContactList = UserData.GetAll();
             oldContactList.Add(contact);
             oldContactList.Sort();
             newcContactList.Sort();
