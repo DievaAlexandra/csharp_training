@@ -18,12 +18,13 @@ namespace WebAddressbookTests
                 app.Contacts.Create(new UserData("небыло","контактов"));
             }
 
-            UserData user = new UserData("еслитывидишьэтозначитконтактобновился","gazprom");
+            UserData user = new UserData("regergergergreg","gazprom");
 
             List<UserData> oldContactList = UserData.GetAll();
-            UserData toBeChanged = oldContactList[0];
+            UserData toBeChanged = oldContactList[1];
+            user.Id = toBeChanged.Id;
 
-            app.Contacts.Modify(toBeChanged);
+            app.Contacts.Modify(user);
 
             Assert.AreEqual(oldContactList.Count, app.Contacts.GetContactCount());
 
@@ -33,6 +34,8 @@ namespace WebAddressbookTests
             oldContactList.Sort();
             newcContactList.Sort();
             Assert.AreEqual(oldContactList, newcContactList);
+
+          
         }
     }
 }

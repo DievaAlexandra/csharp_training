@@ -20,30 +20,26 @@ namespace WebAddressbookTests
                app.Groups.Create(new GroupData("группакоторая"));
             }
 
-            GroupData newData = new GroupData("изменение");
-            newData.Header = null;
-            newData.Footer = null;
-
+            
             List<GroupData> oldGroups = GroupData.GetAll();
-            GroupData toBeChanged = oldGroups[0];
+            GroupData toBeChanged = oldGroups[1];
 
-            app.Groups.Modify(toBeChanged);
+            GroupData newData = new GroupData("мпукпкп");
+            newData.Header = toBeChanged.Header;
+            newData.Footer = toBeChanged.Footer;
+            newData.Id = toBeChanged.Id;
+
+            app.Groups.Modify(newData);
 
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
 
             List<GroupData> newGroups = GroupData.GetAll();
+
             toBeChanged.Name = newData.Name;
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
 
-            foreach (GroupData group in newGroups)
-            {
-                if (group.Id == toBeChanged.Id)
-                {
-                    Assert.AreEqual(group.Name, toBeChanged.Name );
-                }
-            }
         }
     }
 }

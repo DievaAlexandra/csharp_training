@@ -189,7 +189,7 @@ namespace WebAddressbookTests
         //переход на страницу редактирования БД
         public ContactHelper InitContactModification(String id)
         {
-            driver.FindElements(By.CssSelector("img[alt=\"Edit\"]"))[Convert.ToInt32(id)].Click();
+            driver.FindElements(By.CssSelector("a[href*='id=" + id + "'] > img[alt=\"Edit\"]"))[0].Click();
             return this;
         }
 
