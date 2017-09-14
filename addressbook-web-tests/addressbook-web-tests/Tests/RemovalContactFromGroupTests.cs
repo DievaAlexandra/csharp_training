@@ -24,18 +24,18 @@ namespace WebAddressbookTests
             List<UserData> oldlist = groups.GetContacts();//берем все контакты из этой первой группы
             if (oldlist.Count ==0)//смотрим кол-во контактов. еси 0, то
             {
-                UserData user = new UserData("test", "test");
-                app.Contacts.Create(user);
+                
+                UserData user = UserData.GetAll()[0];
                 app.Contacts.AddContactToGroup(user, groups);//добавляем созданный контакт в первую группу
                
             }
 
-            
-            UserData contact = oldlist[0];
-            app.Contacts.RemoveContactFromGroup(contact, groups);
-            List<UserData> newlist = groups.GetContacts();
+            List<UserData> groupsafteradd = groups.GetContacts();//берем снова все контакты группы
+            UserData contact = groupsafteradd[0];//контакт это первый элемент из обновленной группы
+            app.Contacts.RemoveContactFromGroup(contact, groups);//удаление ииз группы
+            List<UserData> newlist = groups.GetContacts();//
         
-            Assert.AreEqual(oldlist.Count-1,newlist.Count);//сравниваем кол-во элементов в старом и новом списке
+            Assert.AreEqual(groupsafteradd.Count-1,newlist.Count);//сравниваем кол-во элементов в старом и новом списке
         }
     }
 }

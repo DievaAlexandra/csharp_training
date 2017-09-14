@@ -13,7 +13,13 @@ namespace WebAddressbookTests
         [Test]
         public void TestAddingContactToGroup()
         {
-            app.Contacts.Create(new UserData("тест", "тестов"));
+            int groupcount = GroupData.GetAll().Count;
+            if (groupcount == 0)
+            {
+                app.Groups.Create(new GroupData("группапервая"));
+            }
+           
+
          
             GroupData group = GroupData.GetAll()[0];
             List<UserData> oldList = group.GetContacts();
