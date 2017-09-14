@@ -30,7 +30,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        //изменение 
+        //изменение UI
         public ContactHelper Modify(int i, UserData contact)
         {
             manager.Navigator.GoToHomePage();
@@ -98,6 +98,13 @@ namespace WebAddressbookTests
         public ContactHelper SelectContact(int i)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (i + 1) + "]")).Click();
+            return this;
+        }
+
+        //выбор элемента из списка DB
+        public ContactHelper SelectContact(String id)
+        {
+            driver.FindElement(By.Id(id)).Click();
             return this;
         }
 
@@ -176,13 +183,6 @@ namespace WebAddressbookTests
         public ContactHelper GoToDetailsPage(int i)
         {
             driver.FindElements(By.CssSelector("img[alt=\"Details\"]"))[i].Click();
-            return this;
-        }
-
-        //выбор элемента из списка DB
-        public ContactHelper SelectContact(String id)
-        {
-            driver.FindElement(By.Id(id)).Click();
             return this;
         }
 
@@ -271,21 +271,50 @@ namespace WebAddressbookTests
                 .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
         }
 
-      
-
-        public void CommitAddingContactToGroup()
+        //удаление контакта из группы
+        public void RemoveContactFromGroup(UserData contact, GroupData group)
         {
-           driver.FindElement(By.Name("add")).Click();
+            manager.Navigator.GoToHomePage();
+            SelectGroupInList(group.Name);
+            SelectContact(contact.Id);
+            SelectActionRemove();
+            ReturnToGroupPage();
         }
 
+        public void ReturnToGroupPage()
+        {
+            driver.FindElement(By.ClassName("msgbox")).Click();
+        }
+
+        //выбор группы из списка
+        public void SelectGroupInList(string groupName)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(groupName);
+        }
+
+        //выбор группы для добавления
         public void SelectGroupToAdd(string groupName)
         {
             new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(groupName);
         }
 
+        //подтверждение добавления контакта в группу
+        public void CommitAddingContactToGroup()
+        {
+           driver.FindElement(By.Name("add")).Click();
+        }
+        
+        //выбор действия Удалить из группы
+        public void SelectActionRemove()
+        {
+            driver.FindElement(By.Name("remove")).Click();
+        }
+
+        //сброс фильтра групп
         public void ClearGroupFilter()
         {
           new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
         }
+
     }
 }
