@@ -17,28 +17,25 @@ namespace WebAddressbookTests
             int groupcount = GroupData.GetAll().Count;
             if (groupcount == 0)
             {
-                app.Groups.Create(new GroupData("группакоторая"));
+                app.Groups.Create(new GroupData("группапервая"));
             }
             
-            
-            GroupData groups = GroupData.GetAll()[0];
-            List<UserData> oldlist = groups.GetContacts();
-            if (oldlist.Count ==0)
+            GroupData groups = GroupData.GetAll()[0];// берем первую группу из списка групп
+            List<UserData> oldlist = groups.GetContacts();//берем все контакты из этой первой группы
+            if (oldlist.Count ==0)//смотрим кол-во контактов. еси 0, то
             {
                 UserData user = new UserData("test", "test");
-                app.Contacts.AddContactToGroup(user, groups);
-                oldlist.Add(user);
+                app.Contacts.Create(user);
+                app.Contacts.AddContactToGroup(user, groups);//добавляем созданный контакт в первую группу
+               
             }
 
             
-            UserData contact = oldlist.First();
-            //app.Contacts.RemoveContactFromGroup(contact, group);
-           // List<UserData> newlist = group.GetContacts();
-            oldlist.Remove(contact);
-            oldlist.Sort();
-            //newlist.Sort();
-           // Assert.AreEqual(oldlist, newlist);
-
+            UserData contact = oldlist[0];
+            app.Contacts.RemoveContactFromGroup(contact, groups);
+            List<UserData> newlist = groups.GetContacts();
+        
+            Assert.AreEqual(oldlist.Count-1,newlist.Count);//сравниваем кол-во элементов в старом и новом списке
         }
     }
 }
