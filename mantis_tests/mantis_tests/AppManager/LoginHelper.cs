@@ -11,54 +11,43 @@ using OpenQA.Selenium.Support.UI;
 
 namespace mantis_tests
 {
-   
+
     public class LoginHelper : HelperBase
     {
-        
+
         public LoginHelper(ApplicationManager manager)
             : base(manager)
         {
         }
 
+        //вход в систему
         public void Login(AccountData account)
         {
             if (IsLoggetIn())
             {
-                if (IsLoggetIn(account))
-                {
-                    return;
-                }
-
                 Logout();
             }
-            Type(By.Name("user"), account.Username);
-            Type(By.Name("pass"), account.Password);
-            driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
+           
+            Type(By.Id("username"), account.Username);
+            driver.FindElement(By.XPath("//input[@value='Login']")).Click();
+            Type(By.Id("password"), account.Password);
+            driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
 
+        //выход из системы
         public void Logout()
         {
             if (IsLoggetIn())
             {
+                driver.FindElement(By.CssSelector("span.user-info")).Click();
                 driver.FindElement(By.LinkText("Logout")).Click();
             }
         }
 
+        //определяем выполнен ли вход в систему
         public bool IsLoggetIn()
         {
-            return IsElementPresent(By.Name("logout"));
-        }
-
-        public bool IsLoggetIn(AccountData account)
-        {
-            return IsLoggetIn()
-                && GetLoggetUserName() == account.Username;
-        }
-
-        public string GetLoggetUserName()
-        {
-            string text = driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text;
-            return text.Substring(1, text.Length - 2);
+            return IsElementPresent(By.CssSelector("span.smaller-75"));
         }
     }
 }

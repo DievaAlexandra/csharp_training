@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
@@ -15,6 +14,10 @@ namespace mantis_tests
     {
         protected IWebDriver driver;
         protected string baseURL;
+
+        protected LoginHelper loginHelper;
+        protected NavigationHelper navigator;
+        public ProjectHelper project;
 
         private static ThreadLocal<ApplicationManager> app  = new ThreadLocal<ApplicationManager>();
 
@@ -28,14 +31,15 @@ namespace mantis_tests
                 UseLegacyImplementation = true
             };
             driver = new FirefoxDriver(options);
-            baseURL = "http://localhost/";
-            Registration = new RegistrationHelper(this);
-            Ftp = new FtpHelper(this);
+            baseURL = "http://localhost/mantisbt-2.6.0/";
+
+            loginHelper = new LoginHelper(this);
+            navigator = new NavigationHelper(this, baseURL);
+            project = new ProjectHelper(this);
         }
 
-        public FtpHelper Ftp { get; set; }
+      
 
-        public RegistrationHelper Registration { get; set; }
 
         ~ApplicationManager()
 
@@ -55,7 +59,7 @@ namespace mantis_tests
             if (! app.IsValueCreated)
             {
                 ApplicationManager newInstance = new ApplicationManager();
-               newInstance.driver.Url = "http://localhost/mantisbt-2.6.0/login_page.php";
+                newInstance.driver.Url = "http://localhost/mantisbt-2.6.0/login_page.php";
                 app.Value = newInstance;
           
             }
@@ -69,5 +73,33 @@ namespace mantis_tests
                 return driver;
             }
         }
+
+        public LoginHelper Auth
+        {
+            get
+            {
+                return loginHelper;
+            }
+
+        }
+
+        public NavigationHelper Navigator
+        {
+            get
+            {
+                return navigator;
+            }
+        }
+
+        public ProjectHelper Project
+        {
+            get
+            {
+                return project;
+            }
+        }
+
     }
+
+
 }

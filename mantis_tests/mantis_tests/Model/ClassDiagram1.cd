@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="mantis_tests.AuthTestBase">
+    <Position X="6.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AppManager\AuthTestBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="mantis_tests.LoginHelper">
+    <Position X="2.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAIAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>AppManager\LoginHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="mantis_tests.HelperBase">
+    <Position X="3" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABCEAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>AppManager\HelperBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="mantis_tests.ApplicationManager">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAABAAAAAAAAAAACASABAgAgAAAACAAABAAACA=</HashCode>
+      <FileName>AppManager\ApplicationManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="mantis_tests.ProjectHelper">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AppManager\ProjectHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="mantis_tests.NavigationHelper">
+    <Position X="4.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>AppManager\NavigationHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

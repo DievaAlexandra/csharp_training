@@ -4,19 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using OpenQA.Selenium.Firefox;
-
 
 namespace mantis_tests
 {
-   public class TestBase
-   {
-      protected ApplicationManager app;
-
+    public class AuthTestBase : TestBase
+    {
         [SetUp]
-        public void SetupApplicationManager()
+        public void SetupLogin()
         {
-            app = ApplicationManager.GetInstance();
+            app.Auth.Login(new AccountData("administrator", "root"));
         }
     }
 }
