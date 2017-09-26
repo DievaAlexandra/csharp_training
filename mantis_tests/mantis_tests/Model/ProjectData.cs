@@ -9,7 +9,9 @@ namespace mantis_tests
 {
     public class ProjectData : IEquatable<ProjectData>, IComparable<ProjectData>
     {
+        //свойства
         public string Name { get; set; }
+        public object Id { get; set; }
 
         public ProjectData(string name)
         {
@@ -17,7 +19,6 @@ namespace mantis_tests
         }
 
         
-
         public int CompareTo(ProjectData other)
         {
             if (Object.ReferenceEquals(other, null))
@@ -27,22 +28,18 @@ namespace mantis_tests
             return Name.CompareTo(other.Name);
         }
 
+        
         public bool Equals(ProjectData other)
         {
-            if (Object.ReferenceEquals(other, null))
-            {
-                return false;
-            }
-            if (Object.ReferenceEquals(this, other))
-            {
-                return true;
-            }
-            return Name == other.Name;
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return string.Equals(Name, other.Name);
         }
 
-        public override string ToString()//метод вернет строковое представление объектов GroupData
+        //метод вернет строковое представление объектов
+        public override string ToString()
         {
-            return "projectname=" + Name;
+            return "projectname= " + Name;
         }
 
       

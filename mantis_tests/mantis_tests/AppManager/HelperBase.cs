@@ -41,7 +41,5 @@ namespace mantis_tests
                 return false;
             }
         }
-
-
     }
 }

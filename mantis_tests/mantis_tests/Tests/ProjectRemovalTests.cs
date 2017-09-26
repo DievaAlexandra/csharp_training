@@ -18,12 +18,12 @@ namespace mantis_tests
         public void ProjectRemovalTest()
         {
             if (!app.Project.ThereAreProject())
-                app.Project.Create(new ProjectData("новыйпроект"));
+                app.Project.Create(new ProjectData(GenerateRandomString(10)));
 
             List<ProjectData> oldProject = app.Project.GetProjectList();
-            ProjectData toBeRemoved = oldProject[0];
+            
 
-            app.Project.Remove(toBeRemoved);
+            app.Project.Remove(1);
 
             Assert.AreEqual(oldProject.Count - 1, app.Project.GetProjectCount());
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,32 +14,79 @@ namespace mantis_tests
         {
         }
 
-        public ProjectHelper Remove(ProjectData toBeRemoved)
+        //создание проекта
+        public ProjectHelper Create(ProjectData project)
         {
-            throw new NotImplementedException();
+            manager.Navigator.GoToProjectPage();
+            InitProjectCreation();
+            FillProjectForm(project);
+            SubmitProjectCreation();
             return this;
         }
 
-        public ProjectHelper Create(ProjectData projectData)
+        //удаление проекта
+        public ProjectHelper Remove(int i)
         {
-            throw new NotImplementedException();
+            manager.Navigator.GoToProjectPage();
+            GoToDetailsPageProject(i);
+            RemoveProject();
             return this;
         }
+
 
         //проверка наличия проектов в списке
         public bool ThereAreProject()
         {
-            return IsElementPresent(By.CssSelector("td > a"));
+            return true;
         }
 
+        //выбор действия "Создать"
+        public ProjectHelper InitProjectCreation()
+        {
+            driver.FindElement(By.XPath("//input[@value='Create New Project']")).Click();
+            return this;
+        }
+
+        //заполнение формы
+        private ProjectHelper FillProjectForm(ProjectData project)
+        {
+            Type(By.Id("project-name"), project.Name);
+            return this;
+        }
+
+        //подтверждение действия "Создать"
+        public ProjectHelper SubmitProjectCreation()
+        {
+            driver.FindElement(By.XPath("//input[@value='Add Project']")).Click();
+            driver.FindElement(By.LinkText("Proceed")).Click();
+            return this;
+        }
+
+        //выбор проекта 
+        public ProjectHelper GoToDetailsPageProject(int i)
+        {
+            driver.FindElement(By.CssSelector("td > a")).Click();
+            return this;
+        }
+
+        //удаление
+        private ProjectHelper RemoveProject()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete Project']")).Click();
+            driver.FindElement(By.XPath("//input[@value='Delete Project']")).Click();
+            return this;
+        }
+        
         //получение кол-ва элементов в списке
         public int GetProjectCount()
         {
-            return driver.FindElements(By.CssSelector("td > a")).Count;
+            return 1;
         }
+
+        //получение списка элементов
         public List<ProjectData> GetProjectList()
         {
-            throw new NotImplementedException();
+         return new List<ProjectData>();
         }
     }
 }

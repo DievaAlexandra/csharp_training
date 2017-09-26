@@ -17,7 +17,7 @@ namespace mantis_tests
 
         protected LoginHelper loginHelper;
         protected NavigationHelper navigator;
-        public ProjectHelper project;
+        protected ProjectHelper projecthelper;
 
         private static ThreadLocal<ApplicationManager> app  = new ThreadLocal<ApplicationManager>();
 
@@ -35,7 +35,7 @@ namespace mantis_tests
 
             loginHelper = new LoginHelper(this);
             navigator = new NavigationHelper(this, baseURL);
-            project = new ProjectHelper(this);
+            projecthelper = new ProjectHelper(this);
         }
 
       
@@ -59,7 +59,7 @@ namespace mantis_tests
             if (! app.IsValueCreated)
             {
                 ApplicationManager newInstance = new ApplicationManager();
-                newInstance.driver.Url = "http://localhost/mantisbt-2.6.0/login_page.php";
+                newInstance.Navigator.GoToHomePage();
                 app.Value = newInstance;
           
             }
@@ -95,7 +95,7 @@ namespace mantis_tests
         {
             get
             {
-                return project;
+                return projecthelper;
             }
         }
 
