@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,19 +26,17 @@ namespace mantis_tests
         }
 
         //удаление проекта
-        public ProjectHelper Remove(int i)
+        public void DeleteProject(int index)
         {
-            manager.Navigator.GoToProjectPage();
-            GoToDetailsPageProject(i);
-            RemoveProject();
-            return this;
+            GoToProjectDetailsPage(index);
+            driver.FindElement(By.XPath("//*[@id='project-delete-form']")).Submit();
+            driver.FindElement(By.XPath("//form[@method='post' and @class='center']")).Submit();
         }
-
 
         //проверка наличия проектов в списке
         public bool ThereAreProject()
         {
-            return true;
+            return GetProjectCount() > 0;
         }
 
         //выбор действия "Создать"
@@ -62,11 +61,17 @@ namespace mantis_tests
             return this;
         }
 
-        //выбор проекта 
-        public ProjectHelper GoToDetailsPageProject(int i)
+        //переход в детальную карточку проекта 
+        public ProjectHelper GoToProjectDetailsPage(int index)
         {
-            driver.FindElement(By.CssSelector("td > a")).Click();
+
+            GetProjectLinks()[index].Click();
             return this;
+        }
+        
+        public List<IWebElement> GetProjectLinks()
+        {
+            return driver.FindElements(By.XPath("//a[contains(@href, 'manage_proj_edit_page')]")).ToList();
         }
 
         //удаление
@@ -80,13 +85,31 @@ namespace mantis_tests
         //получение кол-ва элементов в списке
         public int GetProjectCount()
         {
-            return 1;
+            var widgets = driver.FindElements(By.CssSelector(".main-content .widget-box"));
+            var projects = widgets[0];
+            var tablerows = projects.FindElements(By.CssSelector("table tbody tr"));
+
+            return tablerows.Count;
         }
 
         //получение списка элементов
+        private List<ProjectData> projectCache = null;
+
         public List<ProjectData> GetProjectList()
         {
-         return new List<ProjectData>();
+            if (projectCache == null)
+            {
+                projectCache = new List<ProjectData>();
+
+                var pr = GetProjectLinks();
+
+                foreach (var row in pr)
+                {
+                   projectCache.Add(new ProjectData(row.Text));
+                }
+            }
+            return projectCache;
         }
     }
 }
+

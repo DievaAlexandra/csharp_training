@@ -37,7 +37,8 @@ namespace mantis_tests
             {
                 return;
             }
-            driver.FindElement(By.XPath("//div[@id='sidebar']/ul/li[7]/a/span")).Click();
+            
+            driver.FindElement(By.XPath("//a[contains(@href, '/manage_overview_page.php')]")).Click();
             driver.FindElement(By.LinkText("Manage Projects")).Click();
         }
     }

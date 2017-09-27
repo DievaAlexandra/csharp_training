@@ -7,6 +7,7 @@ using NUnit.Framework;
 
 namespace mantis_tests
 {
+    [TestFixture]
     public class AuthTestBase : TestBase
     {
         [SetUp]

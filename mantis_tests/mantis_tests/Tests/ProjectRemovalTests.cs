@@ -1,29 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support.UI;
 
-namespace mantis_tests
+namespace mantis_tests.Tests
 {
     [TestFixture]
-    public class ProjectRemovalTests : TestBase
+    public class ProjectRemovalTests : AuthTestBase
     {
        
         [Test]
         public void ProjectRemovalTest()
         {
+            app.Navigator.GoToProjectPage();
+
             if (!app.Project.ThereAreProject())
                 app.Project.Create(new ProjectData(GenerateRandomString(10)));
 
             List<ProjectData> oldProject = app.Project.GetProjectList();
-            
 
-            app.Project.Remove(1);
+            app.Project.DeleteProject(0);
 
             Assert.AreEqual(oldProject.Count - 1, app.Project.GetProjectCount());
 

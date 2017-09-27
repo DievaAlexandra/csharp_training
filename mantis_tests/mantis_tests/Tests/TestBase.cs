@@ -9,6 +9,7 @@ using OpenQA.Selenium.Firefox;
 
 namespace mantis_tests
 {
+    [TestFixture]
     public class TestBase
     {
         protected ApplicationManager app;
