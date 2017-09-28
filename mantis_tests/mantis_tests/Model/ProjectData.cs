@@ -11,7 +11,7 @@ namespace mantis_tests
     {
         //свойства
         public string Name { get; set; }
-        public object Id { get; set; }
+        public string Id { get; set; }
 
         public ProjectData(string name)
         {

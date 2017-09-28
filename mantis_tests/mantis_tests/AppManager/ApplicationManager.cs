@@ -18,6 +18,7 @@ namespace mantis_tests
         protected LoginHelper loginHelper;
         protected NavigationHelper navigator;
         protected ProjectHelper projecthelper;
+        
 
         private static ThreadLocal<ApplicationManager> app  = new ThreadLocal<ApplicationManager>();
 
@@ -36,9 +37,10 @@ namespace mantis_tests
             loginHelper = new LoginHelper(this);
             navigator = new NavigationHelper(this, baseURL);
             projecthelper = new ProjectHelper(this);
+            API = new APIHelper(this);
         }
 
-      
+       
 
 
         ~ApplicationManager()
@@ -66,38 +68,15 @@ namespace mantis_tests
             return app.Value;
         }
 
-        public IWebDriver Driver
-        {
-            get
-            {
-                return driver;
-            }
-        }
+        public IWebDriver Driver { get; set; }
 
-        public LoginHelper Auth
-        {
-            get
-            {
-                return loginHelper;
-            }
-
-        }
-
-        public NavigationHelper Navigator
-        {
-            get
-            {
-                return navigator;
-            }
-        }
-
-        public ProjectHelper Project
-        {
-            get
-            {
-                return projecthelper;
-            }
-        }
+        public LoginHelper Auth { get; set; }
+       
+        public NavigationHelper Navigator { get; set; }
+      
+        public ProjectHelper Project { get; set; }
+       
+        public APIHelper API { get; set; }
 
     }
 
