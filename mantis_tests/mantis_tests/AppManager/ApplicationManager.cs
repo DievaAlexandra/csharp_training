@@ -68,13 +68,41 @@ namespace mantis_tests
             return app.Value;
         }
 
-        public IWebDriver Driver { get; set; }
+        public IWebDriver Driver
+        {
+            get
+            {
+                return driver;
+            }
+        }
 
-        public LoginHelper Auth { get; set; }
-       
-        public NavigationHelper Navigator { get; set; }
-      
-        public ProjectHelper Project { get; set; }
+
+        public LoginHelper Auth
+        {
+            get
+            {
+                return loginHelper;
+            }
+
+        }
+
+        public NavigationHelper Navigator
+        {
+            get
+            {
+                return navigator;
+            }
+        }
+
+        public ProjectHelper Project
+        {
+            get
+            {
+                return projecthelper;
+               
+            }
+            
+        }
        
         public APIHelper API { get; set; }
 

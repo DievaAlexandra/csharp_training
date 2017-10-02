@@ -16,7 +16,10 @@ namespace mantis_tests
         public void AddNewIssue()
         {
             AccountData account = new AccountData("administrator", "root");
-            ProjectData project = new ProjectData("test");
+            ProjectData project = new ProjectData("test")
+            {
+                Id = "1"
+            };
             IssueData issue = new IssueData()
             {
                 Summary = "some short text",

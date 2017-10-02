@@ -13,10 +13,12 @@ namespace mantis_tests.Tests
             app.Navigator.GoToProjectPage();
 
             if (!app.Project.ThereAreProject())
-                app.Project.Create(new ProjectData(GenerateRandomString(10)));
-
+                app.API.CreateNewProject(new AccountData("administrator", "root"),
+                                         new ProjectData("test_new_project") );
+                 
             List<ProjectData> oldProject = app.Project.GetProjectList();
 
+            
             app.Project.DeleteProject(0);
 
             Assert.AreEqual(oldProject.Count - 1, app.Project.GetProjectCount());

@@ -17,6 +17,7 @@ namespace mantis_tests
         {
         }
 
+        //создание баг репорта
         public void CreateNewIssue(AccountData account, ProjectData project, IssueData issueData)
         {
             Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
@@ -28,6 +29,33 @@ namespace mantis_tests
             issue.project.id = project.Id;
             client.mc_issue_add(account.Username, account.Password, issue);
         }
+
+        //создание проекта 
+        public void CreateNewProject(AccountData account, ProjectData projectData)
+        {
+            Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
+            Mantis.ProjectData project = new Mantis.ProjectData();
+            project.name = projectData.Name;
+
+            client.mc_project_add(account.Username, account.Password, project);
+        }
+
+      
+        //получение списка элементов
+        private List<ProjectData> projectCache = null;
+
+        public List<ProjectData> GetProjectList(AccountData account)
+        {
+            if (projectCache == null)
+            {
+                Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
+                client.mc_projects_get_user_accessible(account.Username, account.Password);
+            }
+            return projectCache;
+
+        }
+
+        
     }
 
 }
