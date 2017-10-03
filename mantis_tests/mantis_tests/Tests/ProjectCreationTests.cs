@@ -14,20 +14,20 @@ namespace mantis_tests
         [Test]
         public void ProjectCreationTest()
         {
-            ProjectData project = new ProjectData(GenerateRandomString(15));
+            ProjectData project = new ProjectData(GenerateRandomString(10));
             app.Navigator.GoToProjectPage();
 
-            List<ProjectData> oldprojects = app.Project.GetProjectList();//получили старый список проектов
+            List<ProjectData> oldprojects = app.Project.GetProjectList();
 
-            app.Project.Create(project); //выполнили метод добавления нового проекта 
+            app.Project.Create(project);
 
-            Assert.AreEqual(oldprojects.Count + 1, app.Project.GetProjectCount()); //сравнили количество 
+            Assert.AreEqual(oldprojects.Count + 1, app.Project.GetProjectCount());
 
-            List<ProjectData> newprojects = app.Project.GetProjectList();//получили новый список проектов
-            oldprojects.Add(project); //добавили
-            oldprojects.Sort();//отсортировали
+            List<ProjectData> newprojects = app.Project.GetProjectList();
+            oldprojects.Add(project); 
+            oldprojects.Sort();
             newprojects.Sort();
-            Assert.AreEqual(oldprojects,newprojects); // сравнили списки
+            Assert.AreEqual(oldprojects,newprojects);
 
         }
     }

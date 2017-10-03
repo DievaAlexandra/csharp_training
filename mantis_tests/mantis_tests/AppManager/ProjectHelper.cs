@@ -28,6 +28,7 @@ namespace mantis_tests
         //удаление проекта
         public void DeleteProject(int index)
         {
+            manager.Navigator.GoToProjectPage();
             GoToProjectDetailsPage(index);
             driver.FindElement(By.XPath("//*[@id='project-delete-form']")).Submit();
             driver.FindElement(By.XPath("//form[@method='post' and @class='center']")).Submit();
@@ -64,7 +65,7 @@ namespace mantis_tests
         //переход в детальную карточку проекта 
         public ProjectHelper GoToProjectDetailsPage(int index)
         {
-
+            manager.Navigator.GoToProjectPage();
             GetProjectLinks()[index].Click();
             return this;
         }

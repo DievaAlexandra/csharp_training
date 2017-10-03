@@ -22,7 +22,7 @@ namespace mantis_tests
             };
             IssueData issue = new IssueData()
             {
-                Summary = "some short text",
+                Summary = "some short text", 
                 Description = "some long text",
                 Category = "General"
             };

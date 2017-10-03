@@ -13,19 +13,24 @@ namespace mantis_tests.Tests
             app.Navigator.GoToProjectPage();
 
             if (!app.Project.ThereAreProject())
-                app.API.CreateNewProject(new AccountData("administrator", "root"),
-                                         new ProjectData("test_new_project") );
-                 
-            List<ProjectData> oldProject = app.Project.GetProjectList();
+            {
+                app.API.CreateNewProject(new AccountData("administrator", "root"), 
+                    new ProjectData("test_new_project"));
+            }
+
+            List<Mantis.ProjectData> oldProject = app.API.GetProjectList(new AccountData("administrator", "root"));
 
             
             app.Project.DeleteProject(0);
+            
 
-            Assert.AreEqual(oldProject.Count - 1, app.Project.GetProjectCount());
+            Assert.AreEqual(oldProject.Count-1, app.Project.GetProjectCount());
 
-            List<ProjectData> newProject = app.Project.GetProjectList();
+            List<Mantis.ProjectData> newProject = app.API.GetProjectList(new AccountData("administrator", "root"));
 
             oldProject.RemoveAt(0);
+            oldProject.Sort();
+            newProject.Sort();
             Assert.AreEqual(oldProject, newProject);
 
          }

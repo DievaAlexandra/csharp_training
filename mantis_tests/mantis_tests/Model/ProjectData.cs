@@ -20,6 +20,7 @@ namespace mantis_tests
 
         
         public int CompareTo(ProjectData other)
+
         {
             if (Object.ReferenceEquals(other, null))
             {

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using mantis_tests.Mantis;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
@@ -21,12 +22,13 @@ namespace mantis_tests
         public void CreateNewIssue(AccountData account, ProjectData project, IssueData issueData)
         {
             Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
-            Mantis.IssueData issue = new Mantis.IssueData();
-            issue.summary = issueData.Summary;
-            issue.description = issueData.Description;
-            issue.category = issueData.Category;
-            issue.project = new Mantis.ObjectRef();
-            issue.project.id = project.Id;
+            Mantis.IssueData issue = new Mantis.IssueData
+            {
+                summary = issueData.Summary,
+                description = issueData.Description,
+                category = issueData.Category,
+                project = new Mantis.ObjectRef {id = project.Id}
+            };
             client.mc_issue_add(account.Username, account.Password, issue);
         }
 
@@ -42,20 +44,20 @@ namespace mantis_tests
 
       
         //получение списка элементов
-        private List<ProjectData> projectCache = null;
-
-        public List<ProjectData> GetProjectList(AccountData account)
+        
+        public List<Mantis.ProjectData> GetProjectList(AccountData account)
         {
-            if (projectCache == null)
-            {
-                Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
-                client.mc_projects_get_user_accessible(account.Username, account.Password);
-            }
-            return projectCache;
+           
+            driver.Navigate().Refresh();
+            Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
+            List<Mantis.ProjectData> project = client.mc_projects_get_user_accessible(account.Username, account.Password).ToList();
+
+
+            return project;
+            
 
         }
 
-        
     }
 
 }
