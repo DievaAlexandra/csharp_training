@@ -14,16 +14,16 @@ namespace mantis_tests
         [Test]
         public void ProjectCreationTest()
         {
-            ProjectData project = new ProjectData(GenerateRandomString(10));
+            Mantis.ProjectData project = new Mantis.ProjectData();
             app.Navigator.GoToProjectPage();
 
-            List<ProjectData> oldprojects = app.Project.GetProjectList();
+            List<Mantis.ProjectData> oldprojects = app.API.GetProjectList(new AccountData("administrator", "root"));
 
-            app.Project.Create(project);
+            app.API.CreateNewProject(new AccountData("administrator", "root"),new ProjectData(GenerateRandomString(10)));
 
             Assert.AreEqual(oldprojects.Count + 1, app.Project.GetProjectCount());
 
-            List<ProjectData> newprojects = app.Project.GetProjectList();
+            List<Mantis.ProjectData> newprojects = app.API.GetProjectList(new AccountData("administrator", "root"));
             oldprojects.Add(project); 
             oldprojects.Sort();
             newprojects.Sort();

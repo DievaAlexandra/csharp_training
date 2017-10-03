@@ -16,7 +16,7 @@ namespace mantis_tests
         }
 
         //создание проекта
-        public ProjectHelper Create(ProjectData project)
+        public ProjectHelper Create(Mantis.ProjectData project)
         {
             manager.Navigator.GoToProjectPage();
             InitProjectCreation();
@@ -48,9 +48,9 @@ namespace mantis_tests
         }
 
         //заполнение формы
-        private ProjectHelper FillProjectForm(ProjectData project)
+        private ProjectHelper FillProjectForm(Mantis.ProjectData project)
         {
-            Type(By.Id("project-name"), project.Name);
+            Type(By.Id("project-name"), project.name);
             return this;
         }
 
